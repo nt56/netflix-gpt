@@ -8,9 +8,8 @@
 To run this project locally for development purposes, follow these steps:
 
     Clone the repository to your local machine:
-
-        git clone https://github.com/rajatrawal/netflix-gpt.git
-        Navigate to the project directory:
+    git clone https://github.com/rajatrawal/netflix-gpt.git
+    Navigate to the project directory:
 
     cd netflix-gpt
     Install dependencies:
@@ -27,15 +26,15 @@ To run this project locally for development purposes, follow these steps:
 
 # Tech Stack
 
-    React: Frontend framework for building user interfaces.
-    TMDB: Movie database for fetching movie details.
-    Firebase: Authentication and hosting platform.
-    OpenAI: Movie recommendation engine.
-    Specialized Movie Suggestions
-    To enable specialized movie suggestions, obtain your OpenAI key and enter it in the designated section of the application.
+React: Frontend framework for building user interfaces.
+TMDB: Movie database for fetching movie details.
+Firebase: Authentication and hosting platform.
+OpenAI: Movie recommendation engine.
+Specialized Movie Suggestions
+To enable specialized movie suggestions, obtain your OpenAI key and enter it in the designated section of the application.
 
 # Contribute
 
-    If you'd like to contribute to this project, have suggestions for improvement, or wish to add more features, please feel free to submit issues or pull requests on GitHub. Your contributions are valued! 🚀
+If you'd like to contribute to this project, have suggestions for improvement, or wish to add more features, please feel free to submit issues or pull requests on GitHub. Your contributions are valued! 🚀
 
-    Thank you for exploring Netflix GPT. We hope it enhances your movie-watching experience!
+Thank you for exploring Netflix GPT. We hope it enhances your movie-watching experience!
