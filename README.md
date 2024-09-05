@@ -50,6 +50,13 @@
 - Adding .env file to gitignore
 - Made our Site Responsive
 
+# steps for deploy project on firebase
+
+- Install firebase CLI cmd
+- Firebase Login cmd
+- Initialise Firebase cmd
+- Deploy cmd
+
 
 # Features
 

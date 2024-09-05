@@ -2,6 +2,11 @@ import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { BG_URL } from "../utils/constants";
 import { checkValidData } from "../utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -15,8 +20,42 @@ const Login = () => {
     //form data validation
     const message = checkValidData(email.current.value, Password.current.value);
     setErrorMessage(message);
+    if (message) return; //if it has error then it return don't go ahead
 
-    //Sign In or Sign Up Operation
+    //Sign In or Sign Up Operation Logic
+    if (!isSignInForm) {
+      //Sign Up Logic
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        Password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + " - " + errorMessage);
+        });
+    } else {
+      //Sign In Logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        Password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + " - " + errorMessage);
+        });
+    }
   };
 
   const toggelSignInFrom = () => {
