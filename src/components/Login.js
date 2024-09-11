@@ -10,10 +10,13 @@ import {
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [password, setPassword] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -85,6 +88,10 @@ const Login = () => {
     setIsSignInForm(!isSignInForm);
   };
 
+  const handleHideShow = () => {
+    setPassword(!password);
+  };
+
   return (
     <div>
       <Header />
@@ -116,13 +123,21 @@ const Login = () => {
           required
           className="p-4 my-4 w-full bg-gray-700"
         />
-        <input
-          ref={Password}
-          type="password"
-          placeholder="Password"
-          required
-          className="p-4 my-4 w-full bg-gray-700"
-        />
+        <div className="flex justify-between items-center w-full bg-gray-700 my-4 relative">
+          <input
+            ref={Password}
+            type={password ? "password" : "text"}
+            placeholder="Password"
+            required
+            className="p-4 h-fit w-full bg-gray-700"
+          />
+          <div
+            className="cursor-pointer absolute ml-[22rem] text-xl"
+            onClick={handleHideShow}
+          >
+            {password ? <FaEye /> : <FaEyeSlash />}
+          </div>
+        </div>
         <p className="text-white font-bold text-lg py-2">{errorMessage}</p>
         <button
           className="p-4 my-6 bg-red-700 w-full rounded-lg"
