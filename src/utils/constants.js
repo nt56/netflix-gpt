@@ -9,12 +9,13 @@ export const USER_AVATAR =
 
 export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w500";
 
+export const OPENAI_KEY = process.env.REACT_APP_OPENAI_KEY;
+
 export const API_OPTIONS = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZGQxMWRmYmU5ZTZkN2M2NjdkMGIxMmIxNzVlZDYyMSIsIm5iZiI6MTcyNTg2MjUxNi44ODQ1MTQsInN1YiI6IjY2ZGU5MTAxYWJhOTk4ODlmNDg0ZGZiYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zwXHOY61QmcXhhQtJiUULJL6jcwxsNp0UwkV7SzbieY",
+    Authorization: "Bearer" + process.env.REACT_APP_TMDB_KEY,
   },
 };
 
