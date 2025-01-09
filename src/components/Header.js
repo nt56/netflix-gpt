@@ -27,11 +27,11 @@ const Header = () => {
       });
   };
 
-  //whenever user sign  in and sign up user data is add or delete from store
+  //whenever user sign in or sign up execute this
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in
+        // User is signed in then add details to store
         const { uid, email, displayName, photoURL } = user;
         dispatch(
           addUser({
@@ -43,7 +43,7 @@ const Header = () => {
         );
         navigate("/browse");
       } else {
-        // User is signed out
+        // User is signed out then remove user from the store
         dispatch(removeUser());
         navigate("/");
       }

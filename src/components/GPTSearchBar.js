@@ -75,15 +75,6 @@ const GPTSearchBar = () => {
           </button>
         </form>
       </div>
-      <div className="flex w-[75%] justify-center items-cente bg-opacity-100">
-        <p className="font-bold text-white pl-[30rem] pt-20 text-3xl">
-          Upgrade Required: Quota Exceeded Dear User, It looks like you've
-          exceeded your current quota. To continue accessing all features
-          without interruptions, we encourage you to upgrade to our paid
-          version. By upgrading, you'll unlock higher usage limits, premium
-          support, and additional benefits tailored to your needs.
-        </p>
-      </div>
     </>
   );
 };

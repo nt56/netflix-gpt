@@ -18,21 +18,21 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [password, setPassword] = useState(true);
 
-  const dispatch = useDispatch();
-
   const name = useRef(null);
   const email = useRef(null);
   const Password = useRef(null);
 
+  const dispatch = useDispatch();
+
+  //Sign In or Sign Up Operation Logic
   const handleButtonClick = () => {
     //form data validation
     const message = checkValidData(email.current.value, Password.current.value);
     setErrorMessage(message);
     if (message) return; //if it has error then it return don't go ahead
 
-    //Sign In or Sign Up Operation Logic
     if (!isSignInForm) {
-      //Sign Up Logic
+      //Sign Up Logic - as soon as user signin we immediately update the photo url
       createUserWithEmailAndPassword(
         auth,
         email.current.value,
@@ -40,7 +40,7 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          updateProfile(auth.currentUser, {
+          updateProfile(user, {
             displayName: name.current.value,
             photoURL: USER_AVATAR,
           })

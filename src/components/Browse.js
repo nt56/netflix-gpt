@@ -12,7 +12,7 @@ import GPTSearchPage from "./GPTSearchPage";
 const Browse = () => {
   const showGPTSearch = useSelector((store) => store.gpt.showGptSearch);
 
-  //custom hook called
+  //custom hooks called
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();
