@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
-import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
+import { LOGO } from "../utils/constants";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { toggelGptSearchView } from "../utils/gptSlice";
-import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -51,14 +50,10 @@ const Header = () => {
       //when header component is unloads it will unsubscribe to this event
       return () => unsubscribe();
     });
-  }, []);
+  }, [dispatch, navigate]);
 
   const handleGPTSearchClick = () => {
     dispatch(toggelGptSearchView());
-  };
-
-  const handleLanguageChange = (e) => {
-    dispatch(changeLanguage(e.target.value));
   };
 
   return (
@@ -66,32 +61,24 @@ const Header = () => {
       <img src={LOGO} alt="logo" className="w-44 mx-auto md:mx-0" />
 
       {user && (
-        <div className="flex items-center gap-2 justify-between">
-          {showGptSearch && (
-            <select
-              className="p-2 m-2 bg-gray-900 text-white rounded-lg"
-              onChange={handleLanguageChange}
-            >
-              {SUPPORTED_LANGUAGES.map((language) => (
-                <option key={language.identifire} value={language.name}>
-                  {language.name}
-                </option>
-              ))}
-            </select>
-          )}
+        <div className="flex items-center gap-4">
           <button
-            className="py-2 px-4 mx-4 my-2 bg-white text-black font-bold rounded-lg"
+            className="py-2 px-6 flex items-center gap-2 bg-gradient-to-r from-red-500 to-red-700 text-white font-semibold rounded-full shadow-lg hover:scale-105 transition-all duration-300"
             onClick={handleGPTSearchClick}
           >
-            {showGptSearch ? "Home" : " GPT Search"}
+            {showGptSearch ? "🏠 Home" : "🤖 GPT Search"}
           </button>
-          <img
-            alt="user-icon"
-            className="hidden md:block w-12 h-12"
-            src={user?.photoURL}
-          />
-          <button className="font-bold text-white" onClick={handleSignOut}>
-            Sign Out
+
+          <button
+            className="flex items-center gap-2 bg-gray-800 text-white font-semibold rounded-full shadow-md px-4 py-2 hover:bg-red-600 transition-all duration-300"
+            onClick={handleSignOut}
+          >
+            <img
+              alt="user-icon"
+              className="w-8 h-8 rounded-full border-2 border-white"
+              src={user?.photoURL}
+            />
+            <span>🚪 Sign Out</span>
           </button>
         </div>
       )}

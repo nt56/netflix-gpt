@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
-import lang from "../utils/languageConstants";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import client from "../utils/openAI";
 import { API_OPTIONS } from "../utils/constants";
 import { addGPTMovieResults } from "../utils/gptSlice";
@@ -9,7 +8,6 @@ import Error from "./Error";
 const GPTSearchBar = () => {
   const dispatch = useDispatch();
   const searchText = useRef(null);
-  const langKey = useSelector((store) => store.config.lang);
 
   // search movie in TMDB
   const searchMovieTMDB = async (movie) => {
@@ -58,20 +56,20 @@ const GPTSearchBar = () => {
     <>
       <div className="pt-[35%] md:pt-[10%] flex justify-center">
         <form
-          className="w-full md:w-1/2 bg-black grid grid-cols-12"
+          className="w-full md:w-1/2 bg-black/70 backdrop-blur-lg p-2 rounded-full flex items-center shadow-lg"
           onSubmit={(e) => e.preventDefault()}
         >
           <input
             ref={searchText}
             type="text"
-            className="p-4 m-4 col-span-9 font-bold"
-            placeholder={lang[langKey].gptSearchPlaceholder}
+            className="flex-1 p-4 m-2 rounded-full bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
+            placeholder="What do you want to search?"
           />
           <button
-            className="col-span-3 m-4 py-2 px-4 bg-red-700 text-white rounded-lg font-bold"
+            className="m-2 py-3 px-6 bg-red-700 hover:bg-red-600 text-white rounded-full font-semibold shadow-md transition-all duration-300"
             onClick={handleGPTSearch}
           >
-            {lang[langKey].search}
+            🔍 Search
           </button>
         </form>
       </div>
