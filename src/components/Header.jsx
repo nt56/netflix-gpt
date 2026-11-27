@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import Logo from "./Logo";
+import { useToast } from "./toast/toastContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../services/firebase";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -14,6 +15,7 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
+  const showToast = useToast();
 
   const user = useSelector(selectUser);
   const showGptSearch = useSelector((store) => store.ai.showGptSearch);
@@ -54,7 +56,7 @@ const Header = () => {
       })
       .catch((error) => {
         console.error(error);
-        navigate("/error");
+        showToast("Could not sign out. Please try again.", "error");
       });
   };
 

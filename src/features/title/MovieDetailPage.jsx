@@ -10,6 +10,7 @@ import {
   FaFilm,
 } from "react-icons/fa";
 import Row from "../../components/Row";
+import Grid from "../../components/Grid";
 import Skeleton from "../../components/Skeleton";
 import ErrorState from "../../components/ErrorState";
 import { useGetMovieDetailsQuery } from "../../services/tmdb";
@@ -86,10 +87,14 @@ const MovieDetailPage = () => {
           {/* Error Message */}
           {hasError && (
             <div className="my-12">
-              <ErrorState
-                message="Unable to load movie details at this time."
-                onRetry={refetch}
-              />
+              {error.status === 404 ? (
+                <ErrorState message="We could not find this movie." />
+              ) : (
+                <ErrorState
+                  message="Unable to load movie details at this time."
+                  onRetry={refetch}
+                />
+              )}
             </div>
           )}
 
@@ -229,7 +234,7 @@ const MovieDetailPage = () => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
+          <Grid>
             {cast.map((person) => (
               <div
                 key={person.credit_id}
@@ -243,7 +248,7 @@ const MovieDetailPage = () => {
                 </p>
               </div>
             ))}
-          </div>
+          </Grid>
         </section>
       )}
 
