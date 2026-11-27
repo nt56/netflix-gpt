@@ -81,25 +81,6 @@
   scrollbar-width: none;
 }
 
-/* Text glow & gradient clips */
-.text-gradient-gold {
-  background: linear-gradient(135deg, #FFE082 0%, #FFB300 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-red {
-  background: linear-gradient(135deg, #FF4B55 0%, #E50914 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-ai {
-  background: linear-gradient(135deg, #F43F5E 0%, #A855F7 50%, #6366F1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 /* Shimmer placeholder */
 .shimmer-bg {
   background: linear-gradient(
@@ -109,5 +90,4 @@
     rgba(255, 255, 255, 0.03) 100%
   );
   background-size: 200% 100%;
-  animation: shimmer 1.8s infinite;
 }
