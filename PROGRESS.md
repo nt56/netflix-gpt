@@ -4,7 +4,7 @@ Shared memory between sessions. Read it at the start of a session and update it 
 
 ## Current state
 
-- **Current phase:** Phase 0 (Foundation and cleanup). All required tasks are done on branch `phase-0-cleanup`, committed and pushed, not merged into `main`. Waiting for the user's test with the real services
+- **Current phase:** Phase 0 (Foundation and cleanup). All required tasks are done on branch `phase-0-cleanup`, committed and pushed, not merged into `main`. A test with the real services has not been reported
 - **Next step:** User tests sign-up, sign-in, browse, movie page and AI search with real Firebase, TMDB and Gemini. If it works: merge `phase-0-cleanup` into `main`, set Phase 0 to Done, then start Phase 1 in a new session
 
 ## Status
@@ -28,10 +28,9 @@ Status values: Not started, In progress, Done.
 - Phase 0 is not verified with real Firebase, TMDB or Gemini, and not deployed. The new Hosting rewrite in `firebase.json` is not verified.
 - `api.themoviedb.org` timed out on the user's network on 2026-11-27 (`image.tmdb.org` worked). DNS came from the JioFiber router, so it looks like an ISP block. Users on such networks see error states.
 - There is no linter or test runner since Create React App was removed. Tests are planned for Phase 8.
-- `npm audit --omit=dev` reported 17 issues (2 critical, 5 high, 10 moderate) in packages under Firebase and React Router. Not fixed; needs the user's approval.
+- `package.json` overrides `@grpc/grpc-js` to `^1.14.7` because Firestore 4.20.0 asks for an older version with security warnings. Remove the override once Firebase uses a fixed version. Not tested with Firestore calls; check it in Phase 3.
 - The TMDB token and Gemini key are in the browser bundle (Gemini moves in Phase 6).
-- The login page's "Auto-fill Demo Details" button puts a demo password in client code. Ask the user whether to keep it.
-- The brand color `#E50914` is the same red Netflix uses. Kept; ask before changing the theme.
+- The removed demo login (`demo@flixora.com`) is still in the git history. If that account exists in Firebase, delete it or change its password in the Firebase console.
 - While AI search is open, the header links "Top Rated" and "Upcoming" close it but do not scroll. This was already true before Phase 0.
 - The Firebase project ID `netflix-gpt-1ef51` and the repository name cannot be changed by code.
 - The TMDB attribution notice is in the README only; the in-app footer notice is a Phase 1 task.
@@ -48,11 +47,22 @@ Status values: Not started, In progress, Done.
 | 2026-11-27 | After each task: stop, user tests, agent commits once approved |
 | 2026-11-27 | Content categories and watch statuses in `ROADMAP.md` section 3 are accepted |
 | 2026-11-27 | Phase 0 tasks 3 to 7 were done without stopping after each one, then pushed (that session only) |
+| 2026-11-27 | The brand color is purple (`#7C3AED`), replacing red. Error and sign-out styles stay red |
+| 2026-11-27 | Remove the demo auto-fill from the login page |
+| 2026-11-27 | Fix security warnings. This upgraded Firebase 10 to 13 and React Router 6 to 7 |
 
 
 ## Session log
 
 Newest first.
+
+### 2026-11-27: Phase 0, purple theme, security fixes, demo login removed
+
+- **Done:** removed "Testing? Auto-fill Demo Details"; changed the brand color, logo, icon and backdrop to purple; cleared all `npm audit` warnings (`npm audit fix`, Firebase 13.4.0, React Router 7.18.7, `@grpc/grpc-js` override).
+- **Not done:** no merge or deploy. Committed and pushed at the user's request.
+- **Code changes:** `package.json`, `package-lock.json`, `tailwind.config.js`, `src/index.css`, `src/components/Logo.jsx`, `src/components/Header.jsx`, `src/features/auth/LoginPage.jsx`, `src/features/ai/AISearchBar.jsx`, `public/`.
+- **Verified:** `npm audit` found 0 vulnerabilities; `npm run build` with no warnings; the same temporary 26-check Edge test passed on the preview and development servers, with faked services. Not verified: real Firebase 13 sign-in, TMDB, Gemini, deploy.
+- **Next:** user test, then merge.
 
 ### 2026-11-27: Phase 0, tasks 3 to 7
 
