@@ -21,10 +21,8 @@ const BrowseRow = ({ list, anchor, title, subtitle, Icon, iconClass }) => {
 const BrowseRows = () => {
   const { data: heroMovies } = useGetMovieListQuery(HERO_LIST);
 
-  // rows overlap the hero trailer, but only when there is one to overlap
-  const overlap = heroMovies?.length
-    ? "-mt-16 sm:-mt-24 md:-mt-44 lg:-mt-52"
-    : "pt-4";
+  // on large screens the rows overlap the bottom of the hero, when there is one
+  const overlap = heroMovies?.length ? "lg:-mt-24" : "pt-4";
 
   return (
     <div className="bg-dark-950 w-full relative z-20 pb-16">

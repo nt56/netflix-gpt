@@ -8,7 +8,8 @@ const HeroDetails = ({ movie }) => {
   const year = releaseDate ? releaseDate.split("-")[0] : null;
 
   return (
-    <div className="w-full aspect-[16/9] max-h-[88vh] pt-[26%] sm:pt-[20%] md:pt-[16%] lg:pt-[14%] px-4 sm:px-10 md:px-16 lg:px-20 absolute top-0 left-0 z-20 flex flex-col justify-center text-white bg-gradient-to-r from-dark-950/95 via-dark-950/70 to-transparent pointer-events-none">
+    // below the video on small screens, on top of it on large ones
+    <div className="relative z-20 px-4 sm:px-10 md:px-16 pt-4 pb-6 text-white lg:absolute lg:inset-0 lg:px-20 lg:pt-20 lg:pb-32 lg:flex lg:flex-col lg:justify-end lg:bg-gradient-to-r lg:from-dark-950/95 lg:via-dark-950/70 lg:to-transparent lg:pointer-events-none">
       <div className="max-w-2xl animate-fadeInUp pointer-events-auto">
         {/* Cinematic Badge Header */}
         <div className="flex items-center gap-3 mb-2 sm:mb-3 flex-wrap">

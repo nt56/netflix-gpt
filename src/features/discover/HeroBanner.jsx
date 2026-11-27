@@ -32,8 +32,8 @@ const HeroBanner = () => {
 
   return (
     <div className="relative w-full bg-dark-950 overflow-hidden">
-      <HeroDetails movie={movie} />
       <HeroBackground movie={movie} />
+      <HeroDetails movie={movie} />
     </div>
   );
 };
