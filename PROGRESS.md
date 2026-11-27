@@ -4,14 +4,14 @@ Shared memory between sessions. Read it at the start of a session and update it 
 
 ## Current state
 
-- **Current phase:** Phase 0 (Foundation and cleanup). All required tasks are done on branch `phase-0-cleanup`, committed and pushed, not merged into `main`. A test with the real services has not been reported
-- **Next step:** User tests sign-up, sign-in, browse, movie page and AI search with real Firebase, TMDB and Gemini. If it works: merge `phase-0-cleanup` into `main`, set Phase 0 to Done, then start Phase 1 in a new session
+- **Current phase:** Phase 0 (Foundation and cleanup) is done and merged into `main`. Phase 1 has not started
+- **Next step:** Start Phase 1 (multi-media discovery) in a new session, on a branch such as `phase-1-discovery`
 
 ## Status
 
 | Phase | Name | Status |
 | --- | --- | --- |
-| 0 | Foundation and cleanup | In progress |
+| 0 | Foundation and cleanup | Done |
 | 1 | Multi-media discovery | Not started |
 | 2 | Search and filters | Not started |
 | 3 | Library and watchlist | Not started |
@@ -25,7 +25,8 @@ Status values: Not started, In progress, Done.
 
 ## Open issues
 
-- Phase 0 is not verified with real Firebase, TMDB or Gemini, and not deployed. The new Hosting rewrite in `firebase.json` is not verified.
+- The agent did not verify Phase 0 with real Firebase, TMDB or Gemini, and the user has not reported a test result. Check sign-in, browse, movie page and AI search at the start of Phase 1.
+- Phase 0 is not deployed. The new Hosting rewrite in `firebase.json` is not verified.
 - `api.themoviedb.org` timed out on the user's network on 2026-11-27 (`image.tmdb.org` worked). DNS came from the JioFiber router, so it looks like an ISP block. Users on such networks see error states.
 - There is no linter or test runner since Create React App was removed. Tests are planned for Phase 8.
 - `package.json` overrides `@grpc/grpc-js` to `^1.14.7` because Firestore 4.20.0 asks for an older version with security warnings. Remove the override once Firebase uses a fixed version. Not tested with Firestore calls; check it in Phase 3.
@@ -55,6 +56,14 @@ Status values: Not started, In progress, Done.
 ## Session log
 
 Newest first.
+
+### 2026-11-27: Phase 0, merge into main
+
+- **Done:** merged `phase-0-cleanup` into `main` and pushed, at the user's request. Phase 0 set to Done.
+- **Not done:** no deploy.
+- **Code changes:** none besides the merge and this file.
+- **Verified:** `npm run build`. Not verified: real services and deploy.
+- **Next:** Phase 1 in a new session.
 
 ### 2026-11-27: Phase 0, purple theme, security fixes, demo login removed
 
