@@ -9,8 +9,8 @@ export default {
       },
       colors: {
         brand: {
-          DEFAULT: "#E50914",
-          hover: "#F40612",
+          DEFAULT: "#7C3AED",
+          hover: "#8B5CF6",
         },
         dark: {
           950: "#060608",
@@ -26,10 +26,10 @@ export default {
           "radial-gradient(circle at center, transparent 30%, rgba(6, 6, 8, 0.85) 100%)",
       },
       boxShadow: {
-        glow: "0 0 25px rgba(229, 9, 20, 0.45)",
-        "glow-lg": "0 0 45px rgba(229, 9, 20, 0.65)",
+        glow: "0 0 25px rgba(124, 58, 237, 0.45)",
+        "glow-lg": "0 0 45px rgba(124, 58, 237, 0.65)",
         "glow-purple": "0 0 35px rgba(147, 51, 234, 0.5)",
-        "card-hover": "0 20px 40px -15px rgba(229, 9, 20, 0.35)",
+        "card-hover": "0 20px 40px -15px rgba(124, 58, 237, 0.35)",
       },
       animation: {
         fadeIn: "fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards",

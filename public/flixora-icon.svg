@@ -1,13 +1,13 @@
 <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="flixora-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#E50914" />
-      <stop offset="50%" stop-color="#FF2A6D" />
-      <stop offset="100%" stop-color="#8B5CF6" />
+      <stop offset="0%" stop-color="#7C3AED" />
+      <stop offset="50%" stop-color="#D946EF" />
+      <stop offset="100%" stop-color="#6366F1" />
     </linearGradient>
     <linearGradient id="flixora-accent" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#FF5252" />
-      <stop offset="100%" stop-color="#FFB300" />
+      <stop offset="0%" stop-color="#C084FC" />
+      <stop offset="100%" stop-color="#F0ABFC" />
     </linearGradient>
   </defs>
   <!-- Background Rounded Emblem Container -->
@@ -22,5 +22,5 @@
   <!-- Dynamic Mid Play Bar -->
   <path d="M18 22H28C28.8 22 29.5 22.7 29.5 23.5V25.5C29.5 26.3 28.8 27 28 27H18V22Z" fill="url(#flixora-accent)" />
   <!-- Forward Cinema Accent Chevron -->
-  <polygon points="31.5,24.5 36.5,21.5 36.5,27.5" fill="#FF2A6D" />
+  <polygon points="31.5,24.5 36.5,21.5 36.5,27.5" fill="#D946EF" />
 </svg>

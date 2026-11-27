@@ -144,7 +144,7 @@ const Header = () => {
               className={`group relative flex items-center gap-2 whitespace-nowrap px-3.5 sm:px-5 py-2 rounded-full font-semibold text-xs sm:text-sm tracking-wide transition-all duration-300 shadow-lg ${
                 showAiSearch
                   ? "bg-dark-800 text-white border border-white/20 hover:bg-dark-700"
-                  : "bg-gradient-to-r from-red-600 via-rose-600 to-purple-600 text-white hover:shadow-glow-purple hover:scale-105 active:scale-95"
+                  : "bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 text-white hover:shadow-glow-purple hover:scale-105 active:scale-95"
               }`}
             >
               {showAiSearch ? (

@@ -81,14 +81,6 @@ const Login = () => {
     setErrorMessage(null);
   };
 
-  const fillDemoCredentials = () => {
-    if (email.current && passwordRef.current) {
-      email.current.value = "demo@flixora.com";
-      passwordRef.current.value = "Demo@1234";
-      setErrorMessage(null);
-    }
-  };
-
   return (
     <div className="min-h-screen w-full relative flex flex-col justify-between overflow-hidden bg-dark-950 font-sans">
       {/* Cinematic Background Backdrop */}
@@ -188,7 +180,7 @@ const Login = () => {
             <button
               onClick={handleButtonClick}
               disabled={isLoading}
-              className="w-full mt-2 py-3.5 px-6 rounded-xl font-bold text-sm tracking-wide text-white bg-gradient-to-r from-red-600 to-brand hover:from-brand hover:to-red-500 transition-all duration-300 shadow-glow hover:shadow-glow-lg active:scale-[0.99] disabled:opacity-60 flex items-center justify-center gap-2"
+              className="w-full mt-2 py-3.5 px-6 rounded-xl font-bold text-sm tracking-wide text-white bg-gradient-to-r from-violet-600 to-purple-600 hover:from-purple-600 hover:to-violet-600 transition-all duration-300 shadow-glow hover:shadow-glow-lg active:scale-[0.99] disabled:opacity-60 flex items-center justify-center gap-2"
             >
               {isLoading ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -198,24 +190,12 @@ const Login = () => {
             </button>
           </form>
 
-          {/* Quick Demo Helper */}
-          <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-between text-xs">
-            <span className="text-gray-400">Testing?</span>
-            <button
-              type="button"
-              onClick={fillDemoCredentials}
-              className="text-gray-300 hover:text-brand transition-colors font-medium underline underline-offset-4 flex items-center gap-1"
-            >
-              <span>Auto-fill Demo Details</span>
-            </button>
-          </div>
-
           {/* Switch mode */}
           <div className="mt-6 text-center text-xs text-gray-400">
             {isSignInForm ? "New to Flixora? " : "Already have an account? "}
             <button
               onClick={toggleSignInForm}
-              className="font-bold text-white hover:text-brand transition-colors underline-offset-2 hover:underline ml-1"
+              className="font-bold text-white hover:text-brand-hover transition-colors underline-offset-2 hover:underline ml-1"
             >
               {isSignInForm ? "Sign up now" : "Sign in here"}
             </button>

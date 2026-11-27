@@ -129,7 +129,7 @@ const AISearchBar = () => {
         <button
           type="submit"
           disabled={isLoading || !inputValue.trim()}
-          className="w-full sm:w-auto py-3.5 px-8 rounded-xl sm:rounded-full bg-gradient-to-r from-red-600 via-brand to-purple-600 text-white font-extrabold text-sm tracking-wide shadow-glow hover:shadow-glow-purple transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100 flex items-center justify-center gap-2 shrink-0"
+          className="w-full sm:w-auto py-3.5 px-8 rounded-xl sm:rounded-full bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 text-white font-extrabold text-sm tracking-wide shadow-glow hover:shadow-glow-purple transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100 flex items-center justify-center gap-2 shrink-0"
         >
           {isLoading ? (
             <>
