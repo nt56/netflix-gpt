@@ -4,8 +4,8 @@ Shared memory between sessions. Read it at the start of a session and update it 
 
 ## Current state
 
-- **Current phase:** Phase 0 (Foundation and cleanup). Task 1 is committed and merged into `main`. Task 2 is on branch `phase-0-cleanup`, not committed
-- **Next step:** User tests tasks 1 and 2 (sign-in, browse, detail, AI search). Once approved: tick both, commit, start task 3 (router, layout and protected routes)
+- **Current phase:** Phase 0 (Foundation and cleanup). All required tasks are done on branch `phase-0-cleanup`, committed and pushed, not merged into `main`. Waiting for the user's test with the real services
+- **Next step:** User tests sign-up, sign-in, browse, movie page and AI search with real Firebase, TMDB and Gemini. If it works: merge `phase-0-cleanup` into `main`, set Phase 0 to Done, then start Phase 1 in a new session
 
 ## Status
 
@@ -25,11 +25,16 @@ Status values: Not started, In progress, Done.
 
 ## Open issues
 
-- Task 1 (Vite): signed-in pages are not verified, so it is not ticked in `ROADMAP.md`.
+- Phase 0 is not verified with real Firebase, TMDB or Gemini, and not deployed. The new Hosting rewrite in `firebase.json` is not verified.
+- `api.themoviedb.org` timed out on the user's network on 2026-11-27 (`image.tmdb.org` worked). DNS came from the JioFiber router, so it looks like an ISP block. Users on such networks see error states.
 - There is no linter or test runner since Create React App was removed. Tests are planned for Phase 8.
-- Task 2: signed-in pages are not verified, so it is not ticked in `ROADMAP.md`.
-- `npm audit --omit=dev` reports 17 issues (2 critical, 5 high, 10 moderate) in packages under Firebase and React Router. Not fixed; needs the user's approval.
-- `README.md` still describes Netflix GPT and OpenAI. Update it in task 7 (rebrand).
+- `npm audit --omit=dev` reported 17 issues (2 critical, 5 high, 10 moderate) in packages under Firebase and React Router. Not fixed; needs the user's approval.
+- The TMDB token and Gemini key are in the browser bundle (Gemini moves in Phase 6).
+- The login page's "Auto-fill Demo Details" button puts a demo password in client code. Ask the user whether to keep it.
+- The brand color `#E50914` is the same red Netflix uses. Kept; ask before changing the theme.
+- While AI search is open, the header links "Top Rated" and "Upcoming" close it but do not scroll. This was already true before Phase 0.
+- The Firebase project ID `netflix-gpt-1ef51` and the repository name cannot be changed by code.
+- The TMDB attribution notice is in the README only; the in-app footer notice is a Phase 1 task.
 
 ## Decisions
 
@@ -42,11 +47,21 @@ Status values: Not started, In progress, Done.
 | 2026-11-27 | Stay on JavaScript |
 | 2026-11-27 | After each task: stop, user tests, agent commits once approved |
 | 2026-11-27 | Content categories and watch statuses in `ROADMAP.md` section 3 are accepted |
+| 2026-11-27 | Phase 0 tasks 3 to 7 were done without stopping after each one, then pushed (that session only) |
 
 
 ## Session log
 
 Newest first.
+
+### 2026-11-27: Phase 0, tasks 3 to 7
+
+- **Done:** new folder structure; one router with a layout route and route guards; app-level auth provider; RTK Query TMDB service; shared Card, Row, Grid, Skeleton, Toast, error boundary and 404 page; rebrand (original backdrop, false labels removed, new row names, package renamed to `flixora`, new README). Fixed the hero text and button hidden behind the rows (an older bug). Removed unused styles.
+- **Not done:** optional TypeScript task (the project stays on JavaScript). Not merged, not deployed.
+- **Code changes:** `src/app/`, `src/config/`, `src/services/`, `src/features/`, `src/components/`, `firebase.json`.
+- **Behaviour changes:** the hero has one button, "More Info"; AI results are cleared on sign-out; each browse and AI row has its own loading and error state; a sign-out failure shows a toast; the `/error` page was removed.
+- **Verified:** `npm run build` with no warnings; a temporary headless Edge test with 26 checks passed on the preview and development servers. It faked Firebase Auth, Gemini, TMDB, images and YouTube, and the test script is not in the repository. Not verified: any real service, deploy, browsers other than Edge.
+- **Next:** user test, merge, Phase 1.
 
 ### 2026-11-27: Phase 0, task 2 (unused packages and files)
 

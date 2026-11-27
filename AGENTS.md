@@ -42,11 +42,11 @@ Never mark something done if it was not tested. Write "not verified" instead.
 
 ## 4. Project facts
 
-**What it is:** Netflix GPT, being expanded into a discovery and tracking app for movies, TV, anime and web series.
+**What it is:** Flixora (formerly Netflix GPT), being expanded into a discovery and tracking app for movies, TV, anime and web series.
 
 **Backend:** Firebase only. No custom server. Use the free Spark plan; ask before adding anything that needs Blaze.
 
-**Stack (update after Phase 0):** React 18, Redux Toolkit, React Router 6, Tailwind CSS 3, Vite, Firebase 10, TMDB API, Gemini API. JavaScript.
+**Stack:** React 18, Redux Toolkit (with RTK Query), React Router 6, Tailwind CSS 3, Vite, Firebase 10, TMDB API, Gemini API. JavaScript.
 
 | Command | Purpose |
 | --- | --- |
@@ -57,9 +57,11 @@ Never mark something done if it was not tested. Write "not verified" instead.
 
 | Path | Contents |
 | --- | --- |
-| `src/components/` | Pages and UI |
-| `src/hooks/` | TMDB fetch hooks |
-| `src/utils/` | Store, slices, Firebase, Gemini, constants |
+| `src/app/` | App root, store, router, layout |
+| `src/config/` | Constants, browse rows, route helpers |
+| `src/services/` | Firebase, TMDB (`tmdb.js`, the only TMDB access), Gemini |
+| `src/features/` | Pages and logic: `auth`, `discover`, `title`, `ai` |
+| `src/components/` | Shared UI: Card, Row, Grid, Skeleton, Toast, error screens |
 | `tailwind.config.js` | Theme: colors, fonts, animations |
 | `.env` | `VITE_TMDB_KEY`, `VITE_GEMINI_KEY` |
 

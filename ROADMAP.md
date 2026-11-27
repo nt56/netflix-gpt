@@ -178,14 +178,14 @@ Do them in order. Each phase ends with a working, deployable app.
 
 ### Phase 0: Foundation and cleanup
 
-- [ ] Migrate from Create React App to Vite (env variables become `VITE_*`, set Hosting folder to `dist` or keep `build`)
-- [ ] Remove unused packages and files, move `react-router-dom` to `dependencies`
-- [ ] Create the router once, add a layout route and protected routes
-- [ ] Move the auth listener to an app-level provider
-- [ ] One TMDB service using RTK Query (caching, loading and error states) to replace the separate hooks
-- [ ] Shared UI: Card, Row, Grid, Skeleton, Toast, Error boundary, 404 page
-- [ ] Rebrand: name, logo, theme **[Added]**
-- [ ] Optional: TypeScript for new files **[Added]**
+- [x] Migrate from Create React App to Vite (env variables become `VITE_*`, set Hosting folder to `dist` or keep `build`)
+- [x] Remove unused packages and files, move `react-router-dom` to `dependencies`
+- [x] Create the router once, add a layout route and protected routes
+- [x] Move the auth listener to an app-level provider
+- [x] One TMDB service using RTK Query (caching, loading and error states) to replace the separate hooks
+- [x] Shared UI: Card, Row, Grid, Skeleton, Toast, Error boundary, 404 page
+- [x] Rebrand: name, logo, theme **[Added]**
+- [ ] Optional: TypeScript for new files **[Added]** (skipped: the project stays on JavaScript)
 
 **Done when:** the current features work on the new structure and no unused code remains.
 
