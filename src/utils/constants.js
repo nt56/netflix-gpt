@@ -13,9 +13,7 @@ export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w500";
 
 export const BACKDROP_CDN_URL = "https://image.tmdb.org/t/p/w1280";
 
-export const OPENAI_KEY = process.env.REACT_APP_OPENAI_KEY;
-
-export const GEMINI_KEY = process.env.REACT_APP_GEMINI_KEY;
+export const GEMINI_KEY = import.meta.env.VITE_GEMINI_KEY;
 
 export const GEMINI_MODEL = "gemini-3.5-flash-lite";
 
@@ -23,6 +21,6 @@ export const API_OPTIONS = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization: "Bearer " + process.env.REACT_APP_TMDB_KEY,
+    Authorization: "Bearer " + import.meta.env.VITE_TMDB_KEY,
   },
 };

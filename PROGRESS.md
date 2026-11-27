@@ -4,14 +4,14 @@ Shared memory between sessions. Read it at the start of a session and update it 
 
 ## Current state
 
-- **Next phase:** Phase 0 (Foundation and cleanup)
-- **Next step:** Resolve the uncommitted changes below, then create a branch for Phase 0
+- **Current phase:** Phase 0 (Foundation and cleanup). Task 1 is committed and merged into `main`
+- **Next step:** Start task 2 (remove unused packages) on a branch, not on `main`
 
 ## Status
 
 | Phase | Name | Status |
 | --- | --- | --- |
-| 0 | Foundation and cleanup | Not started |
+| 0 | Foundation and cleanup | In progress |
 | 1 | Multi-media discovery | Not started |
 | 2 | Search and filters | Not started |
 | 3 | Library and watchlist | Not started |
@@ -25,7 +25,8 @@ Status values: Not started, In progress, Done.
 
 ## Open issues
 
-- 18 files in `src/`, `public/index.html` and `tailwind.config.js` have uncommitted UI changes on `main` (as of 2026-11-27). The user should review and commit them before Phase 0.
+- Task 1 (Vite): signed-in pages are not verified, so it is not ticked in `ROADMAP.md`.
+- There is no linter or test runner since Create React App was removed. Tests are planned for Phase 8.
 
 ## Decisions
 
@@ -33,12 +34,32 @@ Status values: Not started, In progress, Done.
 | --- | --- |
 | 2026-11-27 | Firebase is the only backend |
 | 2026-11-27 | One roadmap phase per session |
+| 2026-11-27 | Use the Firebase free (Spark) plan |
+| 2026-11-27 | Keep the Flixora brand. In Phase 0, replace the Netflix-hosted image, remove false labels, rename Netflix references |
+| 2026-11-27 | Stay on JavaScript |
+| 2026-11-27 | After each task: stop, user tests, agent commits once approved |
+| 2026-11-27 | Content categories and watch statuses in `ROADMAP.md` section 3 are accepted |
 
-The proposals in `ROADMAP.md` section 3 (categories, statuses, Spark plan, rebrand) are not yet confirmed by the user.
 
 ## Session log
 
 Newest first.
+
+### 2026-11-27: Phase 0, commit and merge task 1
+
+- **Done:** removed the "Suggested by Gemini AI" row subtitle; committed, pushed and merged into `main` at the user's request.
+- **Not done:** other Phase 0 tasks. No deploy.
+- **Code changes:** `src/components/GPTMovieSuggestions.jsx`.
+- **Verified:** `npm run build`. Not verified: sign-in, browse, detail, AI search, deploy.
+- **Next:** task 2.
+
+### 2026-11-27: Phase 0, task 1 (Vite)
+
+- **Done:** replaced Create React App with Vite.
+- **Not done:** other Phase 0 tasks.
+- **Code changes:** `vite.config.js`, `postcss.config.js`, `index.html` moved to root, `src/main.jsx`, JSX files renamed to `.jsx`, env variables renamed to `VITE_*` (also in `.env`). Removed `.babelrc`, `setupTests.js`, `reportWebVitals.js`, `openAI.js`, testing libraries.
+- **Verified:** `npm run build`; login page loads in dev and preview. Not verified: sign-in, browse, detail, AI search, deploy.
+- **Next:** user test, commit, task 2.
 
 ### 2026-11-27: Planning
 

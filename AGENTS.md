@@ -46,13 +46,13 @@ Never mark something done if it was not tested. Write "not verified" instead.
 
 **Backend:** Firebase only. No custom server. Use the free Spark plan; ask before adding anything that needs Blaze.
 
-**Stack (update after Phase 0):** React 18, Redux Toolkit, React Router 6, Tailwind CSS 3, Create React App, Firebase 10, TMDB API, Gemini API. JavaScript.
+**Stack (update after Phase 0):** React 18, Redux Toolkit, React Router 6, Tailwind CSS 3, Vite, Firebase 10, TMDB API, Gemini API. JavaScript.
 
 | Command | Purpose |
 | --- | --- |
-| `npm start` | Development server |
+| `npm run dev` (or `npm start`) | Development server on port 3000 |
 | `npm run build` | Production build to `build/` |
-| `npm test` | Test runner (no test files yet) |
+| `npm run preview` | Serve the production build locally |
 | `firebase deploy` | Deploy to Hosting (only when the user asks) |
 
 | Path | Contents |
@@ -61,7 +61,7 @@ Never mark something done if it was not tested. Write "not verified" instead.
 | `src/hooks/` | TMDB fetch hooks |
 | `src/utils/` | Store, slices, Firebase, Gemini, constants |
 | `tailwind.config.js` | Theme: colors, fonts, animations |
-| `.env` | `REACT_APP_TMDB_KEY`, `REACT_APP_GEMINI_KEY` |
+| `.env` | `VITE_TMDB_KEY`, `VITE_GEMINI_KEY` |
 
 ## 5. Code rules
 
