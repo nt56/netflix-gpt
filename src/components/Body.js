@@ -1,6 +1,7 @@
 import React from "react";
 import Browse from "./Browse";
 import Login from "./Login";
+import MovieDetail from "./MovieDetail";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const Body = () => {
@@ -12,6 +13,10 @@ const Body = () => {
     {
       path: "/browse",
       element: <Browse />,
+    },
+    {
+      path: "/movie/:movieId",
+      element: <MovieDetail />,
     },
   ]);
 

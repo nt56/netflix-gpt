@@ -1,19 +1,20 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import client from "../utils/openAI";
+import askGemini from "../utils/gemini";
 import { API_OPTIONS } from "../utils/constants";
 import { addGPTMovieResults } from "../utils/gptSlice";
-import Error from "./Error";
 
 const GPTSearchBar = () => {
   const dispatch = useDispatch();
   const searchText = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   // search movie in TMDB
   const searchMovieTMDB = async (movie) => {
     const data = await fetch(
       "https://api.themoviedb.org/3/search/movie?query=" +
-        movie +
+        encodeURIComponent(movie) +
         "&include_adult=false&language=en-US&page=1",
       API_OPTIONS
     );
@@ -22,34 +23,52 @@ const GPTSearchBar = () => {
     return json.results;
   };
 
-  //GPT api call and other
+  //Gemini api call and other
   const handleGPTSearch = async () => {
+    const query = searchText.current.value.trim();
+    if (!query || isLoading) return;
+
     const gptQuery =
       "Act as a Movie Recommendation system and suggest some movies for the query : " +
-      searchText.current.value +
+      query +
       ". only give me names of 5 movies, comma seperated like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya";
 
-    //make an api call
-    const gptResults = await client.chat.completions.create({
-      messages: [{ role: "user", content: gptQuery }],
-      model: "gpt-3.5-turbo",
-    });
+    setIsLoading(true);
+    setErrorMessage(null);
 
-    if (!gptResults.choices) {
-      <Error />;
+    try {
+      //make an api call
+      const reply = await askGemini(gptQuery);
+
+      //got array of movie list from gemini
+      const gptMovies = reply
+        .split(",")
+        .map((movie) => movie.trim())
+        .filter(Boolean);
+
+      if (!gptMovies.length) {
+        setErrorMessage("No suggestions found. Try a different search.");
+        return;
+      }
+
+      //for each movie search in TMDB API
+      const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
+      const tmdbResults = await Promise.all(promiseArray);
+
+      //addding movies to the store
+      dispatch(
+        addGPTMovieResults({ movieNames: gptMovies, movieResults: tmdbResults })
+      );
+    } catch (error) {
+      console.error(error);
+      setErrorMessage(
+        error.status === 429
+          ? "Search limit reached. Please wait a bit and try again."
+          : "Something went wrong. Please try again."
+      );
+    } finally {
+      setIsLoading(false);
     }
-
-    //got array of movie list from openai
-    const gptMovies = gptResults.choices?.[0]?.message?.content.split(",");
-
-    //for each movie search in TMDB API
-    const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
-    const tmdbResults = await Promise.all(promiseArray);
-
-    //addding movies to the store
-    dispatch(
-      addGPTMovieResults({ movieNAmes: gptMovies, movieResults: tmdbResults })
-    );
   };
 
   return (
@@ -66,13 +85,19 @@ const GPTSearchBar = () => {
             placeholder="What do you want to search?"
           />
           <button
-            className="m-2 py-3 px-6 bg-red-700 hover:bg-red-600 text-white rounded-full font-semibold shadow-md transition-all duration-300"
+            className="m-2 py-3 px-6 bg-red-700 hover:bg-red-600 text-white rounded-full font-semibold shadow-md transition-all duration-300 disabled:opacity-50"
             onClick={handleGPTSearch}
+            disabled={isLoading}
           >
-            🔍 Search
+            {isLoading ? "Searching..." : "🔍 Search"}
           </button>
         </form>
       </div>
+      {errorMessage && (
+        <p className="mt-4 text-center text-red-500 font-semibold">
+          {errorMessage}
+        </p>
+      )}
     </>
   );
 };

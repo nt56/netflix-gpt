@@ -40,20 +40,22 @@ const Header = () => {
             photoURL: photoURL,
           })
         );
-        navigate("/browse");
+        // only leave the login page, so other pages stay where they are
+        if (window.location.pathname === "/") navigate("/browse");
       } else {
         // User is signed out then remove user from the store
         dispatch(removeUser());
         navigate("/");
       }
-
-      //when header component is unloads it will unsubscribe to this event
-      return () => unsubscribe();
     });
+
+    //when header component is unloads it will unsubscribe to this event
+    return () => unsubscribe();
   }, [dispatch, navigate]);
 
   const handleGPTSearchClick = () => {
     dispatch(toggelGptSearchView());
+    navigate("/browse");
   };
 
   return (
