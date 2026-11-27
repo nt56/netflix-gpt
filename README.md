@@ -15,11 +15,11 @@ Planned work is in [ROADMAP.md](ROADMAP.md).
 
 ## Tech stack
 
-React 18, Redux Toolkit (with RTK Query), React Router 6, Tailwind CSS 3, Vite, Firebase 10 (Authentication and Hosting), TMDB API and Gemini API.
+React 18, Redux Toolkit (with RTK Query), React Router 7, Tailwind CSS 3, Vite, Firebase 13 (Authentication and Hosting), TMDB API and Gemini API.
 
 ## Setup
 
-You need Node.js, a [TMDB API read access token](https://developer.themoviedb.org/docs/getting-started) and a [Gemini API key](https://ai.google.dev/gemini-api/docs/api-key).
+You need Node.js 20 or newer, a [TMDB API read access token](https://developer.themoviedb.org/docs/getting-started) and a [Gemini API key](https://ai.google.dev/gemini-api/docs/api-key).
 
 1. Install the packages: `npm install`
 2. Create a `.env` file in the project root:

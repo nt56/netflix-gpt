@@ -46,7 +46,7 @@ Never mark something done if it was not tested. Write "not verified" instead.
 
 **Backend:** Firebase only. No custom server. Use the free Spark plan; ask before adding anything that needs Blaze.
 
-**Stack:** React 18, Redux Toolkit (with RTK Query), React Router 6, Tailwind CSS 3, Vite, Firebase 10, TMDB API, Gemini API. JavaScript.
+**Stack:** React 18, Redux Toolkit (with RTK Query), React Router 7, Tailwind CSS 3, Vite, Firebase 13, TMDB API, Gemini API. JavaScript. Node.js 20 or newer.
 
 | Command | Purpose |
 | --- | --- |
