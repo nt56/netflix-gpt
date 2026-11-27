@@ -95,7 +95,7 @@ const Login = () => {
       <div className="fixed inset-0 z-0">
         <img
           src={BG_URL}
-          alt="Flixora cinematic backdrop"
+          alt=""
           className="h-full w-full object-cover scale-105 filter brightness-50"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/70 to-dark-950/40" />
@@ -107,13 +107,13 @@ const Login = () => {
         <div className="w-full max-w-md glass-panel p-8 sm:p-10 rounded-3xl border border-white/10 shadow-2xl animate-fadeInUp">
           {/* Brand Header */}
           <div className="text-center mb-8 flex flex-col items-center">
-            <Logo size="lg" withTagline={false} className="mb-4" />
+            <Logo size="lg" className="mb-4" />
             <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               {isSignInForm ? "Welcome Back" : "Create Your Account"}
             </h1>
             <p className="text-gray-400 text-xs sm:text-sm mt-1.5">
               {isSignInForm
-                ? "Sign in to stream trailers & explore AI recommendations"
+                ? "Sign in to watch trailers & explore AI recommendations"
                 : "Join Flixora for personalized AI cinema discovery"}
             </p>
           </div>

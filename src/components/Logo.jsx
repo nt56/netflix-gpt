@@ -1,12 +1,8 @@
-import React from "react";
-
-const Logo = ({ size = "md", withTagline = false, className = "" }) => {
+const Logo = ({ size = "md", className = "" }) => {
   // Dimension presets
   const sizeMap = {
-    sm: { icon: "w-7 h-7", text: "text-lg", badge: "text-[9px] px-1.5 py-0.2" },
     md: { icon: "w-9 h-9", text: "text-2xl sm:text-3xl", badge: "text-[10px] px-2 py-0.5" },
     lg: { icon: "w-12 h-12", text: "text-3xl sm:text-4xl", badge: "text-xs px-2.5 py-0.5" },
-    xl: { icon: "w-16 h-16", text: "text-4xl sm:text-5xl", badge: "text-xs px-3 py-1" },
   };
 
   const currentSize = sizeMap[size] || sizeMap.md;
@@ -78,11 +74,6 @@ const Logo = ({ size = "md", withTagline = false, className = "" }) => {
           </span>
         </div>
 
-        {withTagline && (
-          <span className="text-[10px] sm:text-xs text-gray-400 font-medium tracking-wide">
-            Cinema Reimagined with AI
-          </span>
-        )}
       </div>
     </div>
   );

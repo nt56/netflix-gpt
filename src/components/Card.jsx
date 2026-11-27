@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaStar, FaPlay } from "react-icons/fa";
+import { FaStar, FaInfoCircle } from "react-icons/fa";
 import Skeleton from "./Skeleton";
 import { IMG_CDN_URL } from "../config/constants";
 import { titlePath } from "../config/routes";
@@ -33,10 +33,10 @@ const Card = ({ item }) => {
 
       {/* Modern Hover Card Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/60 to-transparent opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3 pointer-events-none">
-        {/* Play Icon Pill */}
+        {/* Details Pill */}
         <div className="mb-2 self-start flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white text-dark-950 font-bold text-[11px] shadow-lg">
-          <FaPlay className="text-[9px]" />
-          <span>Watch</span>
+          <FaInfoCircle className="text-[10px]" />
+          <span>Details</span>
         </div>
 
         {/* Title */}

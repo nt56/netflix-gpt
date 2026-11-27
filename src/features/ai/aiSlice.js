@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { removeUser } from "../auth/authSlice";
 
 const initialState = {
-  showGptSearch: false,
+  showAiSearch: false,
   movieNames: null,
 };
 
@@ -10,10 +10,10 @@ const aiSlice = createSlice({
   name: "ai",
   initialState,
   reducers: {
-    toggelGptSearchView: (state) => {
-      state.showGptSearch = !state.showGptSearch;
+    toggleAiSearch: (state) => {
+      state.showAiSearch = !state.showAiSearch;
     },
-    addGPTMovieResults: (state, action) => {
+    setAiSuggestions: (state, action) => {
       state.movieNames = action.payload;
     },
   },
@@ -23,5 +23,5 @@ const aiSlice = createSlice({
   },
 });
 
-export const { toggelGptSearchView, addGPTMovieResults } = aiSlice.actions;
+export const { toggleAiSearch, setAiSuggestions } = aiSlice.actions;
 export default aiSlice.reducer;

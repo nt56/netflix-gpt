@@ -127,11 +127,6 @@ const MovieDetailPage = () => {
 
               {/* Main Info */}
               <div className="flex-1 text-center md:text-left">
-                {/* Release Type Badge */}
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/20 border border-brand/40 text-brand text-xs font-bold uppercase tracking-wider mb-3">
-                  <span>Flixora Premiere</span>
-                </div>
-
                 <h1 className="text-3xl sm:text-5xl md:text-6xl font-black font-display tracking-tight text-white leading-tight">
                   {movie.title}
                 </h1>
@@ -167,10 +162,6 @@ const MovieDetailPage = () => {
                       <span>{formatRuntime(movie.runtime)}</span>
                     </div>
                   )}
-
-                  <div className="px-2.5 py-1 rounded-md border border-white/20 text-gray-300 text-xs font-semibold">
-                    4K Ultra HD
-                  </div>
                 </div>
 
                 {/* Genres */}
@@ -282,7 +273,7 @@ const MovieDetailPage = () => {
         <section className="max-w-7xl mx-auto py-8">
           <Row
             title="More Like This"
-            subtitle="Audiences who watched this also enjoyed"
+            subtitle="Recommended by TMDB"
             icon={<FaFilm className="text-brand" />}
             items={recommendations}
           />

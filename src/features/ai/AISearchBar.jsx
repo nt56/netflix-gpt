@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import askGemini from "../../services/ai";
-import { addGPTMovieResults } from "./aiSlice";
+import { setAiSuggestions } from "./aiSlice";
 import { HiSparkles } from "react-icons/hi2";
 import { FaSearch, FaTimes, FaFire } from "react-icons/fa";
 
@@ -14,7 +14,7 @@ const QUICK_SUGGESTIONS = [
   "Dark Murder Mysteries with Twist Endings",
 ];
 
-const GPTSearchBar = () => {
+const AISearchBar = () => {
   const dispatch = useDispatch();
   const searchText = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +25,7 @@ const GPTSearchBar = () => {
     const query = queryText.trim();
     if (!query || isLoading) return;
 
-    const gptQuery =
+    const prompt =
       "Act as a Movie Recommendation system and suggest some movies for the query : " +
       query +
       ". only give me names of 5 movies, comma seperated like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya";
@@ -34,21 +34,21 @@ const GPTSearchBar = () => {
     setErrorMessage(null);
 
     try {
-      const reply = await askGemini(gptQuery);
+      const reply = await askGemini(prompt);
 
       const names = reply
         .split(",")
         .map((movie) => movie.trim())
         .filter(Boolean);
-      const gptMovies = [...new Set(names)];
+      const movieNames = [...new Set(names)];
 
-      if (!gptMovies.length) {
+      if (!movieNames.length) {
         setErrorMessage("No suggestions found. Try a different search.");
         return;
       }
 
       // each result row looks its movie up on TMDB
-      dispatch(addGPTMovieResults(gptMovies));
+      dispatch(setAiSuggestions(movieNames));
     } catch (error) {
       console.error(error);
       setErrorMessage(
@@ -149,7 +149,7 @@ const GPTSearchBar = () => {
       <div className="mt-5">
         <div className="flex items-center gap-2 mb-2 text-xs font-semibold text-gray-400">
           <FaFire className="text-brand text-xs" />
-          <span>Popular Prompts:</span>
+          <span>Try a prompt:</span>
         </div>
         <div className="flex flex-wrap gap-2">
           {QUICK_SUGGESTIONS.map((suggestion) => (
@@ -175,4 +175,4 @@ const GPTSearchBar = () => {
   );
 };
 
-export default GPTSearchBar;
+export default AISearchBar;

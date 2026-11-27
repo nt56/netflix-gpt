@@ -22,7 +22,7 @@ const HeroBanner = () => {
           <div role="status" className="flex flex-col items-center gap-3">
             <div className="w-10 h-10 border-4 border-brand border-t-transparent rounded-full animate-spin" />
             <span className="text-xs uppercase tracking-widest text-gray-400 font-semibold">
-              Loading Premiere...
+              Loading movie...
             </span>
           </div>
         )}

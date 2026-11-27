@@ -1,4 +1,4 @@
-import { FaPlay, FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { titlePath } from "../../config/routes";
@@ -13,8 +13,7 @@ const HeroDetails = ({ movie }) => {
         {/* Cinematic Badge Header */}
         <div className="flex items-center gap-3 mb-2 sm:mb-3 flex-wrap">
           <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-brand/90 text-white font-extrabold text-[10px] sm:text-xs tracking-wider uppercase shadow-glow">
-            <span>FLIXORA</span>
-            <span className="font-normal opacity-80">ORIGINAL</span>
+            <span>Now Playing</span>
           </div>
           {rating > 0 && (
             <div className="flex items-center gap-1 text-xs font-bold text-yellow-400 bg-yellow-400/10 border border-yellow-400/20 px-2 py-0.5 rounded">
@@ -27,9 +26,6 @@ const HeroDetails = ({ movie }) => {
               {year}
             </span>
           )}
-          <span className="text-[10px] sm:text-xs font-semibold px-1.5 py-0.5 border border-white/20 text-gray-300 rounded hidden sm:inline-block">
-            Ultra HD 4K
-          </span>
         </div>
 
         {/* Big Movie Title */}
@@ -47,14 +43,6 @@ const HeroDetails = ({ movie }) => {
           <Link
             to={titlePath(movie)}
             className="flex items-center gap-2 sm:gap-3 py-2 sm:py-3 px-5 sm:px-8 bg-white hover:bg-gray-200 text-dark-950 font-extrabold text-xs sm:text-base rounded-xl shadow-xl transition-all duration-300 hover:scale-105 active:scale-95"
-          >
-            <FaPlay className="text-xs sm:text-sm text-dark-950" />
-            <span>Play</span>
-          </Link>
-
-          <Link
-            to={titlePath(movie)}
-            className="flex items-center gap-2 sm:gap-3 py-2 sm:py-3 px-5 sm:px-8 bg-white/20 hover:bg-white/30 text-white font-bold text-xs sm:text-base rounded-xl backdrop-blur-md border border-white/20 transition-all duration-300 hover:scale-105 active:scale-95"
           >
             <BsInfoCircleFill className="text-sm sm:text-base" />
             <span>More Info</span>

@@ -1,9 +1,8 @@
-import React from "react";
-import GPTSearchBar from "./AISearchBar";
-import GPTMovieSuggestions from "./AISuggestions";
+import AISearchBar from "./AISearchBar";
+import AISuggestions from "./AISuggestions";
 import { BG_URL } from "../../config/constants";
 
-const GPTSearch = () => {
+const AISearchPage = () => {
   return (
     <div className="min-h-screen w-full relative bg-dark-950 text-white overflow-x-hidden">
       {/* Ambient AI Background Backdrop */}
@@ -11,7 +10,7 @@ const GPTSearch = () => {
         <img
           className="h-full w-full object-cover scale-105 filter brightness-[0.22] blur-sm"
           src={BG_URL}
-          alt="AI Cinema Backdrop"
+          alt=""
         />
         {/* Layered Cyberpunk / AI Radial Lights */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-radial from-purple-700/20 via-brand/10 to-transparent blur-3xl pointer-events-none" />
@@ -20,11 +19,11 @@ const GPTSearch = () => {
       </div>
 
       <div className="relative z-10 pt-24 sm:pt-28 pb-16">
-        <GPTSearchBar />
-        <GPTMovieSuggestions />
+        <AISearchBar />
+        <AISuggestions />
       </div>
     </div>
   );
 };
 
-export default GPTSearch;
+export default AISearchPage;
