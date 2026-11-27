@@ -1,6 +1,6 @@
-import { API_OPTIONS } from "../utils/constants";
+import { API_OPTIONS } from "../config/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { addUpcomingMovies } from "../utils/moviesSlice";
+import { addUpcomingMovies } from "../features/discover/moviesSlice";
 import { useEffect } from "react";
 
 const useUpcomingMovies = () => {

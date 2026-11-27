@@ -1,8 +1,8 @@
 import React from "react";
-import Browse from "./Browse";
-import Login from "./Login";
-import MovieDetail from "./MovieDetail";
-import Error from "./Error";
+import Browse from "../features/discover/BrowsePage";
+import Login from "../features/auth/LoginPage";
+import MovieDetail from "../features/title/MovieDetailPage";
+import Error from "../components/Error";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const Body = () => {

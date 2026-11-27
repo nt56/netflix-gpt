@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { IMG_CDN_URL } from "../utils/constants";
+import { IMG_CDN_URL } from "../config/constants";
 import { FaStar, FaPlay } from "react-icons/fa";
 
 const MovieCard = ({ movieId, title, posterPath, rating, releaseDate }) => {

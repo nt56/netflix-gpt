@@ -1,5 +1,5 @@
 import React from "react";
-import MovieList from "./MovieList";
+import MovieList from "../../components/MovieList";
 import { useSelector } from "react-redux";
 import { HiSparkles } from "react-icons/hi2";
 import { FaFilm, FaBrain, FaBolt } from "react-icons/fa";

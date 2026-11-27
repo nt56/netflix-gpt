@@ -9,10 +9,10 @@ import {
   FaUserTie,
   FaFilm,
 } from "react-icons/fa";
-import Header from "./Header";
-import MovieList from "./MovieList";
-import useMovieDetails from "../hooks/useMovieDetails";
-import { BACKDROP_CDN_URL, IMG_CDN_URL } from "../utils/constants";
+import Header from "../../components/Header";
+import MovieList from "../../components/MovieList";
+import useMovieDetails from "../../hooks/useMovieDetails";
+import { BACKDROP_CDN_URL, IMG_CDN_URL } from "../../config/constants";
 
 const formatRuntime = (minutes) => {
   if (!minutes) return null;

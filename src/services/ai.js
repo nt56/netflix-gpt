@@ -1,4 +1,4 @@
-import { GEMINI_KEY, GEMINI_MODEL } from "./constants";
+import { GEMINI_KEY, GEMINI_MODEL } from "../config/constants";
 
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 

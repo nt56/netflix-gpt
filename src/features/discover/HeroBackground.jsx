@@ -1,7 +1,7 @@
 import React from "react";
-import useMovieTrailer from "../hooks/useMovieTrailer";
+import useMovieTrailer from "../../hooks/useMovieTrailer";
 import { useSelector } from "react-redux";
-import { BACKDROP_CDN_URL } from "../utils/constants";
+import { BACKDROP_CDN_URL } from "../../config/constants";
 
 const VideoBackground = ({ movieId, fallbackBackdrop }) => {
   useMovieTrailer(movieId);

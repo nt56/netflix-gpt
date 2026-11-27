@@ -1,16 +1,16 @@
 import React, { useRef, useState } from "react";
-import Header from "./Header";
-import Logo from "./Logo";
-import { BG_URL, USER_AVATAR } from "../utils/constants";
-import { checkValidData } from "../utils/validate";
+import Header from "../../components/Header";
+import Logo from "../../components/Logo";
+import { BG_URL, USER_AVATAR } from "../../config/constants";
+import { checkValidData } from "./validate";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { auth } from "../utils/firebase";
+import { auth } from "../../services/firebase";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
+import { addUser } from "./authSlice";
 import { FaEye, FaEyeSlash, FaLock, FaUser, FaEnvelope, FaExclamationCircle } from "react-icons/fa";
 
 const Login = () => {

@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import askGemini from "../utils/gemini";
-import { API_OPTIONS } from "../utils/constants";
-import { addGPTMovieResults } from "../utils/gptSlice";
+import askGemini from "../../services/ai";
+import { API_OPTIONS } from "../../config/constants";
+import { addGPTMovieResults } from "./aiSlice";
 import { HiSparkles } from "react-icons/hi2";
 import { FaSearch, FaTimes, FaFire } from "react-icons/fa";
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { API_OPTIONS } from "../utils/constants";
+import { API_OPTIONS } from "../config/constants";
 
 // Fetches one movie with its cast, videos and recommendations from TMDB
 const useMovieDetails = (movieId) => {

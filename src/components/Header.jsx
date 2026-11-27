@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import Logo from "./Logo";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../utils/firebase";
+import { auth } from "../services/firebase";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, removeUser } from "../utils/userSlice";
-import { toggelGptSearchView } from "../utils/gptSlice";
+import { addUser, removeUser } from "../features/auth/authSlice";
+import { toggelGptSearchView } from "../features/ai/aiSlice";
 import { HiSparkles } from "react-icons/hi2";
 import { FaHome, FaChevronDown } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
