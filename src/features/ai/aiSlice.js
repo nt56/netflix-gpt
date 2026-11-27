@@ -4,7 +4,6 @@ import { removeUser } from "../auth/authSlice";
 const initialState = {
   showGptSearch: false,
   movieNames: null,
-  movieResults: null,
 };
 
 const aiSlice = createSlice({
@@ -15,9 +14,7 @@ const aiSlice = createSlice({
       state.showGptSearch = !state.showGptSearch;
     },
     addGPTMovieResults: (state, action) => {
-      const { movieNames, movieResults } = action.payload;
-      state.movieNames = movieNames;
-      state.movieResults = movieResults;
+      state.movieNames = action.payload;
     },
   },
   // the next user must not see the previous user's AI results

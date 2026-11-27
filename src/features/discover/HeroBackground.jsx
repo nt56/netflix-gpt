@@ -1,28 +1,26 @@
-import React from "react";
-import useMovieTrailer from "../../hooks/useMovieTrailer";
-import { useSelector } from "react-redux";
+import { useGetMovieTrailerQuery } from "../../services/tmdb";
 import { BACKDROP_CDN_URL } from "../../config/constants";
 
-const VideoBackground = ({ movieId, fallbackBackdrop }) => {
-  useMovieTrailer(movieId);
-
-  const trailerVideo = useSelector((store) => store.movies?.trailerVideo);
+// Muted trailer behind the hero text, or the backdrop image without one
+const HeroBackground = ({ movie }) => {
+  const { currentData: trailer } = useGetMovieTrailerQuery(movie.id);
 
   return (
     <div className="relative w-full aspect-[16/9] max-h-[88vh] overflow-hidden bg-dark-950 select-none">
-      {trailerVideo?.key ? (
+      {trailer ? (
         <div className="w-full h-full relative pointer-events-none">
           <iframe
             className="w-full h-full scale-[1.3] md:scale-[1.25] origin-center opacity-90 transition-opacity duration-1000"
-            src={`https://www.youtube.com/embed/${trailerVideo.key}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=${trailerVideo.key}&modestbranding=1&enablejsapi=1`}
-            title="YouTube video player"
+            src={`https://www.youtube.com/embed/${trailer.key}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=${trailer.key}&modestbranding=1&enablejsapi=1`}
+            title={`${movie.title} trailer`}
+            tabIndex={-1}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           />
         </div>
-      ) : fallbackBackdrop ? (
+      ) : movie.backdropPath ? (
         <img
-          src={BACKDROP_CDN_URL + fallbackBackdrop}
-          alt="Featured preview"
+          src={BACKDROP_CDN_URL + movie.backdropPath}
+          alt=""
           className="w-full h-full object-cover filter brightness-75 scale-105 transition-transform duration-1000 ease-out"
         />
       ) : (
@@ -37,4 +35,4 @@ const VideoBackground = ({ movieId, fallbackBackdrop }) => {
   );
 };
 
-export default VideoBackground;
+export default HeroBackground;

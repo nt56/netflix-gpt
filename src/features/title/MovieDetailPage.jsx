@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   FaArrowLeft,
@@ -9,8 +9,10 @@ import {
   FaUserTie,
   FaFilm,
 } from "react-icons/fa";
-import MovieList from "../../components/MovieList";
-import useMovieDetails from "../../hooks/useMovieDetails";
+import Row from "../../components/Row";
+import Skeleton from "../../components/Skeleton";
+import ErrorState from "../../components/ErrorState";
+import { useGetMovieDetailsQuery } from "../../services/tmdb";
 import { BACKDROP_CDN_URL, IMG_CDN_URL } from "../../config/constants";
 
 const formatRuntime = (minutes) => {
@@ -20,9 +22,15 @@ const formatRuntime = (minutes) => {
   return `${hours}h ${mins}m`;
 };
 
-const MovieDetail = () => {
+const MovieDetailPage = () => {
   const { movieId } = useParams();
-  const { movie, hasError } = useMovieDetails(movieId);
+  // currentData is never the previous movie's data
+  const {
+    currentData: movie,
+    error,
+    refetch,
+  } = useGetMovieDetailsQuery(movieId);
+  const hasError = !movie && Boolean(error);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -38,25 +46,20 @@ const MovieDetail = () => {
     }
   };
 
-  const director = movie?.credits?.crew?.find(
-    (person) => person.job === "Director"
-  );
-  const cast = movie?.credits?.cast?.slice(0, 8) ?? [];
-  const videos =
-    movie?.videos?.results?.filter((video) => video.site === "YouTube") ?? [];
-  const trailer =
-    videos.find((video) => video.type === "Trailer") ?? videos[0];
-  const recommendations = movie?.recommendations?.results ?? [];
+  const director = movie?.director;
+  const cast = movie?.cast ?? [];
+  const trailer = movie?.trailer;
+  const recommendations = movie?.recommendations ?? [];
 
   return (
     <div className="min-h-screen w-full bg-dark-950 text-white font-sans overflow-x-hidden">
       {/* Hero Backdrop Banner */}
       <div className="relative w-full min-h-[60vh] md:min-h-[75vh] overflow-hidden">
-        {movie?.backdrop_path ? (
+        {movie?.backdropPath ? (
           <div className="absolute inset-0 z-0 overflow-hidden">
             <img
               alt={movie.title || "Movie Backdrop"}
-              src={BACKDROP_CDN_URL + movie.backdrop_path}
+              src={BACKDROP_CDN_URL + movie.backdropPath}
               className="w-full h-full object-cover object-top filter brightness-[0.38]"
             />
             {/* Layered Vignettes & Seamless Bottom Fade into Dark Background */}
@@ -82,27 +85,23 @@ const MovieDetail = () => {
 
           {/* Error Message */}
           {hasError && (
-            <div className="max-w-md p-6 rounded-2xl bg-red-950/70 border border-red-500/40 text-center mx-auto my-12">
-              <p className="text-red-300 font-bold mb-3">
-                Unable to load movie details at this time.
-              </p>
-              <button
-                onClick={handleBack}
-                className="px-5 py-2 rounded-xl bg-brand text-white font-semibold text-xs shadow-glow"
-              >
-                Return to Browse
-              </button>
+            <div className="my-12">
+              <ErrorState
+                message="Unable to load movie details at this time."
+                onRetry={refetch}
+              />
             </div>
           )}
 
           {/* Loading Skeleton */}
           {!movie && !hasError && (
-            <div className="flex flex-col md:flex-row gap-8 animate-pulse">
-              <div className="w-48 sm:w-64 md:w-80 aspect-[2/3] bg-dark-850 rounded-2xl shimmer-bg" />
+            <div role="status" className="flex flex-col md:flex-row gap-8">
+              <span className="sr-only">Loading movie details</span>
+              <Skeleton className="w-48 sm:w-64 md:w-80 aspect-[2/3] rounded-2xl" />
               <div className="flex-1 space-y-4">
-                <div className="h-10 w-2/3 bg-dark-850 rounded-xl shimmer-bg" />
-                <div className="h-5 w-1/3 bg-dark-850 rounded-lg shimmer-bg" />
-                <div className="h-24 w-full bg-dark-850 rounded-xl shimmer-bg" />
+                <Skeleton className="h-10 w-2/3 rounded-xl" />
+                <Skeleton className="h-5 w-1/3 rounded-lg" />
+                <Skeleton className="h-24 w-full rounded-xl" />
               </div>
             </div>
           )}
@@ -111,11 +110,11 @@ const MovieDetail = () => {
           {movie && (
             <div className="flex flex-col md:flex-row items-center md:items-start gap-8 lg:gap-12 animate-fadeInUp">
               {/* Poster Card */}
-              {movie.poster_path && (
+              {movie.posterPath && (
                 <div className="w-56 sm:w-64 md:w-80 shrink-0 rounded-2xl overflow-hidden shadow-2xl border border-white/15 group">
                   <img
                     alt={movie.title}
-                    src={IMG_CDN_URL + movie.poster_path}
+                    src={IMG_CDN_URL + movie.posterPath}
                     className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
@@ -140,20 +139,20 @@ const MovieDetail = () => {
 
                 {/* Metadata Pills */}
                 <div className="mt-5 flex flex-wrap items-center justify-center md:justify-start gap-3">
-                  {movie.vote_count > 0 && (
+                  {movie.voteCount > 0 && (
                     <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-yellow-400/10 border border-yellow-400/30 text-yellow-400 text-xs sm:text-sm font-bold">
                       <FaStar className="text-xs" />
-                      <span>{movie.vote_average.toFixed(1)} / 10</span>
+                      <span>{movie.rating.toFixed(1)} / 10</span>
                       <span className="text-[11px] text-gray-400 font-normal">
-                        ({movie.vote_count.toLocaleString()})
+                        ({movie.voteCount.toLocaleString()})
                       </span>
                     </div>
                   )}
 
-                  {movie.release_date && (
+                  {movie.releaseDate && (
                     <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel text-xs sm:text-sm text-gray-300 font-medium">
                       <FaCalendarAlt className="text-xs text-brand" />
-                      <span>{movie.release_date.slice(0, 4)}</span>
+                      <span>{movie.releaseDate.slice(0, 4)}</span>
                     </div>
                   )}
 
@@ -276,11 +275,11 @@ const MovieDetail = () => {
       {/* More Like This (Recommendations) */}
       {recommendations.length > 0 && (
         <section className="max-w-7xl mx-auto py-8">
-          <MovieList
+          <Row
             title="More Like This"
             subtitle="Audiences who watched this also enjoyed"
             icon={<FaFilm className="text-brand" />}
-            movies={recommendations}
+            items={recommendations}
           />
         </section>
       )}
@@ -293,4 +292,4 @@ const MovieDetail = () => {
   );
 };
 
-export default MovieDetail;
+export default MovieDetailPage;

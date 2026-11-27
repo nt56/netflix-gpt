@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import askGemini from "../../services/ai";
-import { API_OPTIONS } from "../../config/constants";
 import { addGPTMovieResults } from "./aiSlice";
 import { HiSparkles } from "react-icons/hi2";
 import { FaSearch, FaTimes, FaFire } from "react-icons/fa";
@@ -22,22 +21,6 @@ const GPTSearchBar = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [inputValue, setInputValue] = useState("");
 
-  const searchMovieTMDB = async (movie) => {
-    try {
-      const data = await fetch(
-        "https://api.themoviedb.org/3/search/movie?query=" +
-          encodeURIComponent(movie) +
-          "&include_adult=false&language=en-US&page=1",
-        API_OPTIONS
-      );
-      const json = await data.json();
-      return json.results || [];
-    } catch (err) {
-      console.error("TMDB error:", err);
-      return [];
-    }
-  };
-
   const executeSearch = async (queryText) => {
     const query = queryText.trim();
     if (!query || isLoading) return;
@@ -53,25 +36,19 @@ const GPTSearchBar = () => {
     try {
       const reply = await askGemini(gptQuery);
 
-      const gptMovies = reply
+      const names = reply
         .split(",")
         .map((movie) => movie.trim())
         .filter(Boolean);
+      const gptMovies = [...new Set(names)];
 
       if (!gptMovies.length) {
         setErrorMessage("No suggestions found. Try a different search.");
         return;
       }
 
-      const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
-      const tmdbResults = await Promise.all(promiseArray);
-
-      dispatch(
-        addGPTMovieResults({
-          movieNames: gptMovies,
-          movieResults: tmdbResults,
-        })
-      );
+      // each result row looks its movie up on TMDB
+      dispatch(addGPTMovieResults(gptMovies));
     } catch (error) {
       console.error(error);
       setErrorMessage(

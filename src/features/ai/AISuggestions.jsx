@@ -1,11 +1,27 @@
-import React from "react";
-import MovieList from "../../components/MovieList";
+import Row from "../../components/Row";
+import { useSearchMoviesQuery } from "../../services/tmdb";
 import { useSelector } from "react-redux";
 import { HiSparkles } from "react-icons/hi2";
 import { FaFilm, FaBrain, FaBolt } from "react-icons/fa";
 
-const GPTMovieSuggestions = () => {
-  const { movieNames, movieResults } = useSelector((store) => store.ai);
+// TMDB matches for one movie name suggested by the AI
+const SuggestionRow = ({ name }) => {
+  const { currentData, isError, refetch } = useSearchMoviesQuery(name);
+
+  return (
+    <Row
+      title={name}
+      icon={<HiSparkles className="text-yellow-400" />}
+      items={currentData}
+      isError={isError}
+      onRetry={refetch}
+      emptyMessage="No match found on TMDB."
+    />
+  );
+};
+
+const AISuggestions = () => {
+  const movieNames = useSelector((store) => store.ai.movieNames);
 
   if (!movieNames) {
     return (
@@ -81,22 +97,12 @@ const GPTMovieSuggestions = () => {
 
       {/* Suggested Movie Lists */}
       <div className="space-y-6">
-        {movieNames.map((movieName, index) => {
-          const results = movieResults[index];
-          if (!results || results.length === 0) return null;
-
-          return (
-            <MovieList
-              key={movieName}
-              title={movieName}
-              icon={<HiSparkles className="text-yellow-400" />}
-              movies={results}
-            />
-          );
-        })}
+        {movieNames.map((name) => (
+          <SuggestionRow key={name} name={name} />
+        ))}
       </div>
     </div>
   );
 };
 
-export default GPTMovieSuggestions;
+export default AISuggestions;

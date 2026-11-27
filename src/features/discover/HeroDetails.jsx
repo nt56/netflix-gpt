@@ -1,10 +1,10 @@
-import React from "react";
-import { FaPlay } from "react-icons/fa";
+import { FaPlay, FaStar } from "react-icons/fa";
 import { BsInfoCircleFill } from "react-icons/bs";
-import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { titlePath } from "../../config/routes";
 
-const VideoTitle = ({ movieId, title, overview, rating, releaseDate }) => {
+const HeroDetails = ({ movie }) => {
+  const { title, overview, rating, releaseDate } = movie;
   const year = releaseDate ? releaseDate.split("-")[0] : null;
 
   return (
@@ -45,7 +45,7 @@ const VideoTitle = ({ movieId, title, overview, rating, releaseDate }) => {
         {/* Action Buttons */}
         <div className="mt-4 sm:mt-6 flex items-center gap-3 sm:gap-4 flex-wrap">
           <Link
-            to={"/movie/" + movieId}
+            to={titlePath(movie)}
             className="flex items-center gap-2 sm:gap-3 py-2 sm:py-3 px-5 sm:px-8 bg-white hover:bg-gray-200 text-dark-950 font-extrabold text-xs sm:text-base rounded-xl shadow-xl transition-all duration-300 hover:scale-105 active:scale-95"
           >
             <FaPlay className="text-xs sm:text-sm text-dark-950" />
@@ -53,7 +53,7 @@ const VideoTitle = ({ movieId, title, overview, rating, releaseDate }) => {
           </Link>
 
           <Link
-            to={"/movie/" + movieId}
+            to={titlePath(movie)}
             className="flex items-center gap-2 sm:gap-3 py-2 sm:py-3 px-5 sm:px-8 bg-white/20 hover:bg-white/30 text-white font-bold text-xs sm:text-base rounded-xl backdrop-blur-md border border-white/20 transition-all duration-300 hover:scale-105 active:scale-95"
           >
             <BsInfoCircleFill className="text-sm sm:text-base" />
@@ -65,4 +65,4 @@ const VideoTitle = ({ movieId, title, overview, rating, releaseDate }) => {
   );
 };
 
-export default VideoTitle;
+export default HeroDetails;
