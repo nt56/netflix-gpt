@@ -2,52 +2,83 @@ import React, { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import MovieCard from "./MovieCard";
 
-const ARROW_CLASS =
-  "hidden md:flex absolute top-0 bottom-0 z-10 w-12 items-center justify-center bg-black/60 text-white text-2xl opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity";
-
-const MovieList = ({ title, movies }) => {
+const MovieList = ({ title, subtitle, icon, movies }) => {
   const rowRef = useRef(null);
 
-  // direction: -1 scrolls left, 1 scrolls right
   const scrollRow = (direction) => {
     const row = rowRef.current;
-    row.scrollBy({
-      left: direction * row.clientWidth * 0.8,
-      behavior: "smooth",
-    });
+    if (row) {
+      row.scrollBy({
+        left: direction * row.clientWidth * 0.75,
+        behavior: "smooth",
+      });
+    }
   };
 
+  if (!movies || movies.length === 0) return null;
+
   return (
-    <div className="px-6 ">
-      <h1 className="text-lg md:text-4xl font-bold py-4 text-white">{title}</h1>
-      <div className="relative group">
+    <div className="px-4 sm:px-8 md:px-14 py-2 group/row">
+      {/* Category Header */}
+      <div className="flex items-end justify-between mb-3">
+        <div className="flex items-center gap-2.5">
+          <span className="w-1.5 h-6 rounded-full bg-brand hidden sm:block" />
+          <div>
+            <div className="flex items-center gap-2">
+              {icon && <span className="text-sm sm:text-base">{icon}</span>}
+              <h2 className="text-lg sm:text-2xl font-bold font-display text-white tracking-tight">
+                {title}
+              </h2>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-gray-400 font-medium">
+                {movies.length}
+              </span>
+            </div>
+            {subtitle && (
+              <p className="text-xs text-gray-400 hidden md:block mt-0.5">
+                {subtitle}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Row with Navigation Controls */}
+      <div className="relative group/list">
+        {/* Left Arrow Button */}
         <button
           type="button"
           aria-label={`Scroll ${title} left`}
-          className={`${ARROW_CLASS} left-0`}
           onClick={() => scrollRow(-1)}
+          className="hidden md:flex absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 items-center justify-center rounded-full glass-panel bg-dark-900/90 text-white hover:bg-brand hover:scale-110 active:scale-95 transition-all duration-200 opacity-0 group-hover/row:opacity-100 shadow-2xl border border-white/20"
         >
-          <FaChevronLeft />
+          <FaChevronLeft className="text-sm" />
         </button>
-        <div ref={rowRef} className="flex overflow-x-scroll">
-          <div className="flex gap-4 md:gap-6 p-2">
-            {movies?.map((movie) => (
-              <MovieCard
-                key={movie.id}
-                movieId={movie.id}
-                title={movie.title}
-                posterPath={movie.poster_path}
-              />
-            ))}
-          </div>
+
+        {/* Scrollable Container */}
+        <div
+          ref={rowRef}
+          className="flex overflow-x-auto no-scrollbar scroll-smooth gap-3 sm:gap-4 md:gap-5 py-4 px-1"
+        >
+          {movies.map((movie) => (
+            <MovieCard
+              key={movie.id}
+              movieId={movie.id}
+              title={movie.title || movie.original_title}
+              posterPath={movie.poster_path}
+              rating={movie.vote_average}
+              releaseDate={movie.release_date}
+            />
+          ))}
         </div>
+
+        {/* Right Arrow Button */}
         <button
           type="button"
           aria-label={`Scroll ${title} right`}
-          className={`${ARROW_CLASS} right-0`}
           onClick={() => scrollRow(1)}
+          className="hidden md:flex absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 items-center justify-center rounded-full glass-panel bg-dark-900/90 text-white hover:bg-brand hover:scale-110 active:scale-95 transition-all duration-200 opacity-0 group-hover/row:opacity-100 shadow-2xl border border-white/20"
         >
-          <FaChevronRight />
+          <FaChevronRight className="text-sm" />
         </button>
       </div>
     </div>

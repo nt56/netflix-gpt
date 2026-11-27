@@ -12,22 +12,21 @@ import GPTSearchPage from "./GPTSearchPage";
 const Browse = () => {
   const showGPTSearch = useSelector((store) => store.gpt.showGptSearch);
 
-  //custom hooks called
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();
   useUpcomingMovies();
 
   return (
-    <div>
+    <div className="min-h-screen w-full bg-dark-950 text-white font-sans overflow-x-hidden selection:bg-brand selection:text-white">
       <Header />
       {showGPTSearch ? (
         <GPTSearchPage />
       ) : (
-        <>
+        <main className="relative">
           <MainContainer />
           <SecondaryContainer />
-        </>
+        </main>
       )}
     </div>
   );

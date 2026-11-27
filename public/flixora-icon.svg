@@ -1,0 +1,26 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="flixora-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E50914" />
+      <stop offset="50%" stop-color="#FF2A6D" />
+      <stop offset="100%" stop-color="#8B5CF6" />
+    </linearGradient>
+    <linearGradient id="flixora-accent" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF5252" />
+      <stop offset="100%" stop-color="#FFB300" />
+    </linearGradient>
+  </defs>
+  <!-- Background Rounded Emblem Container -->
+  <rect width="48" height="48" rx="14" fill="#0C0C12" stroke="rgba(255,255,255,0.14)" stroke-width="1.5" />
+  <!-- Ambient Inner Glow -->
+  <circle cx="24" cy="24" r="14" fill="url(#flixora-grad)" opacity="0.25" />
+  <!-- Stylized Geometric "F" Ribbon -->
+  <!-- Vertical Spine -->
+  <path d="M14 11H20V37H14V11Z" fill="url(#flixora-grad)" rx="2" />
+  <!-- Top Bar -->
+  <path d="M18 11H34C35.1 11 36 11.9 36 13V15.5C36 16.6 35.1 17.5 34 17.5H18V11Z" fill="url(#flixora-grad)" />
+  <!-- Dynamic Mid Play Bar -->
+  <path d="M18 22H28C28.8 22 29.5 22.7 29.5 23.5V25.5C29.5 26.3 28.8 27 28 27H18V22Z" fill="url(#flixora-accent)" />
+  <!-- Forward Cinema Accent Chevron -->
+  <polygon points="31.5,24.5 36.5,21.5 36.5,27.5" fill="#FF2A6D" />
+</svg>
