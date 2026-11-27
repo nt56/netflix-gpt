@@ -89,7 +89,6 @@ const GPTMovieSuggestions = () => {
             <MovieList
               key={movieName}
               title={movieName}
-              subtitle="Suggested by Gemini AI"
               icon={<HiSparkles className="text-yellow-400" />}
               movies={results}
             />
