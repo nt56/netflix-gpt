@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import Header from "../../components/Header";
 import Logo from "../../components/Logo";
 import { BG_URL, USER_AVATAR } from "../../config/constants";
 import { checkValidData } from "./validate";
@@ -10,7 +9,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../../services/firebase";
 import { useDispatch } from "react-redux";
-import { addUser } from "./authSlice";
+import { addUser, toProfile } from "./authSlice";
 import { FaEye, FaEyeSlash, FaLock, FaUser, FaEnvelope, FaExclamationCircle } from "react-icons/fa";
 
 const Login = () => {
@@ -36,6 +35,9 @@ const Login = () => {
     setIsLoading(true);
 
     if (!isSignInForm) {
+      // read the name now: creating the account leaves this page
+      const nameVal = name.current?.value || "Flixora Viewer";
+
       try {
         const userCredential = await createUserWithEmailAndPassword(
           auth,
@@ -44,19 +46,12 @@ const Login = () => {
         );
         const user = userCredential.user;
         await updateProfile(user, {
-          displayName: name.current?.value || "Flixora Viewer",
+          displayName: nameVal,
           photoURL: USER_AVATAR,
         });
 
-        const { uid, email: userEmail, displayName, photoURL } = auth.currentUser;
-        dispatch(
-          addUser({
-            uid,
-            email: userEmail,
-            displayName,
-            photoURL,
-          })
-        );
+        // the auth listener fired before the name was saved, so update the store
+        dispatch(addUser(toProfile(auth.currentUser)));
       } catch (error) {
         setErrorMessage(
           error.code
@@ -96,8 +91,6 @@ const Login = () => {
 
   return (
     <div className="min-h-screen w-full relative flex flex-col justify-between overflow-hidden bg-dark-950 font-sans">
-      <Header />
-
       {/* Cinematic Background Backdrop */}
       <div className="fixed inset-0 z-0">
         <img

@@ -9,7 +9,6 @@ import {
   FaUserTie,
   FaFilm,
 } from "react-icons/fa";
-import Header from "../../components/Header";
 import MovieList from "../../components/MovieList";
 import useMovieDetails from "../../hooks/useMovieDetails";
 import { BACKDROP_CDN_URL, IMG_CDN_URL } from "../../config/constants";
@@ -51,8 +50,6 @@ const MovieDetail = () => {
 
   return (
     <div className="min-h-screen w-full bg-dark-950 text-white font-sans overflow-x-hidden">
-      <Header />
-
       {/* Hero Backdrop Banner */}
       <div className="relative w-full min-h-[60vh] md:min-h-[75vh] overflow-hidden">
         {movie?.backdrop_path ? (

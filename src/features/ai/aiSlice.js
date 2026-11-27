@@ -1,12 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { removeUser } from "../auth/authSlice";
 
-const gptSlice = createSlice({
-  name: "gpt",
-  initialState: {
-    showGptSearch: false,
-    movieNames: null,
-    movieResults: null,
-  },
+const initialState = {
+  showGptSearch: false,
+  movieNames: null,
+  movieResults: null,
+};
+
+const aiSlice = createSlice({
+  name: "ai",
+  initialState,
   reducers: {
     toggelGptSearchView: (state) => {
       state.showGptSearch = !state.showGptSearch;
@@ -17,7 +20,11 @@ const gptSlice = createSlice({
       state.movieResults = movieResults;
     },
   },
+  // the next user must not see the previous user's AI results
+  extraReducers: (builder) => {
+    builder.addCase(removeUser, () => initialState);
+  },
 });
 
-export const { toggelGptSearchView, addGPTMovieResults } = gptSlice.actions;
-export default gptSlice.reducer;
+export const { toggelGptSearchView, addGPTMovieResults } = aiSlice.actions;
+export default aiSlice.reducer;

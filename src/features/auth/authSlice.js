@@ -1,17 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const userSlice = createSlice({
-  name: "user",
-  initialState: null,
+// status is "loading" until Firebase reports whether someone is signed in
+const authSlice = createSlice({
+  name: "auth",
+  initialState: { status: "loading", user: null },
   reducers: {
     addUser: (state, action) => {
-      return action.payload;
+      state.status = "signedIn";
+      state.user = action.payload;
     },
-    removeUser: (state, action) => {
-      return null;
+    removeUser: (state) => {
+      state.status = "signedOut";
+      state.user = null;
     },
   },
 });
 
-export const { addUser, removeUser } = userSlice.actions;
-export default userSlice.reducer;
+// Keeps only the plain, serialisable fields of a Firebase user
+export const toProfile = ({ uid, email, displayName, photoURL }) => ({
+  uid,
+  email,
+  displayName,
+  photoURL,
+});
+
+export const selectUser = (state) => state.auth.user;
+export const selectAuthStatus = (state) => state.auth.status;
+
+export const { addUser, removeUser } = authSlice.actions;
+export default authSlice.reducer;

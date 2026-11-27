@@ -5,7 +5,7 @@ import { HiSparkles } from "react-icons/hi2";
 import { FaFilm, FaBrain, FaBolt } from "react-icons/fa";
 
 const GPTMovieSuggestions = () => {
-  const { movieNames, movieResults } = useSelector((store) => store.gpt);
+  const { movieNames, movieResults } = useSelector((store) => store.ai);
 
   if (!movieNames) {
     return (

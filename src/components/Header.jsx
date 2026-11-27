@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import Logo from "./Logo";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { auth } from "../services/firebase";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, removeUser } from "../features/auth/authSlice";
+import { selectUser } from "../features/auth/authSlice";
 import { toggelGptSearchView } from "../features/ai/aiSlice";
 import { HiSparkles } from "react-icons/hi2";
 import { FaHome, FaChevronDown } from "react-icons/fa";
@@ -15,8 +15,8 @@ const Header = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const user = useSelector((store) => store.user);
-  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
+  const user = useSelector(selectUser);
+  const showGptSearch = useSelector((store) => store.ai.showGptSearch);
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -57,28 +57,6 @@ const Header = () => {
         navigate("/error");
       });
   };
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const { uid, email, displayName, photoURL } = user;
-        dispatch(
-          addUser({
-            uid: uid,
-            email: email,
-            displayName: displayName,
-            photoURL: photoURL,
-          })
-        );
-        if (window.location.pathname === "/") navigate("/browse");
-      } else {
-        dispatch(removeUser());
-        navigate("/");
-      }
-    });
-
-    return () => unsubscribe();
-  }, [dispatch, navigate]);
 
   const handleGPTSearchClick = () => {
     dispatch(toggelGptSearchView());
