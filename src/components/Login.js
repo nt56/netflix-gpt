@@ -73,9 +73,6 @@ const Login = () => {
         email.current.value,
         Password.current.value
       )
-        .then((userCredential) => {
-          const user = userCredential.user;
-        })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
