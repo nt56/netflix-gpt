@@ -1,90 +1,53 @@
-# Netflix GPT
+# Flixora
 
-# Steps
+A movie discovery web app. Browse movies from TMDB, watch trailers and ask Gemini AI for suggestions.
 
-- create react-app
-- configure tailwind
-- Header
-- Routing of App
-- Login Form
-- Sign up Form
-- Form Validation
-- useRef Hook
-- Firebase Setup
-- Deploying our app to production
-- Create SignUp User Account
-- Implement Sign In user Api
-- Created Redux Store with userSlice
-- Implemented Sign out
-- Update Profile
-- BugFix: Sign up user displayName and profile picture update
-- BugFix: if the user is not logged in Redirect /browse to Login Page and vice-versa
-- Unsubscibed to the onAuthStateChanged callback
-- Add hardcoded values to the constants file
-- Regiter TMDB API & create an app & get access token
-- Get Data from TMDB now playing movies list API
-- Custom Hook for Now Playing Movies
-- Create movieSlice
-- Update Store with movies Data
-- Planning for MainContauiner & secondary container
-- Fetch Data for Trailer Video
-- Update Store with Trailer Video Data
-- Embedded the Yotube video and make it autoplay and mute
-- Tailwind Classes to make Main Container look awesome
-- Build Secondary Component
-- Build Movie List
-- build Movie Card
-- TMDB Image CDN URL
-- Made the Browsre page amazing with Tailwind CSS
-- usePopularMovies Custom hook
-- GPT Search Page
-- GPT Search Bar
-- (BONUS) Multi-language Feature in our App)
-- Get Open AI Api Key
-- Gpt Search API Call
-- fetched gptMoviesSuggestions from TMDB
-- created gptSlice added data
-- Resused Movie List component to make movie suggestion container
-- Memoization
-- Added .env file
-- Adding .env file to gitignore
-- Made our Site Responsive
+The app does not stream movies.
 
-# steps for deploy project on firebase
+## Features
 
-- Install firebase CLI cmd
-- Firebase Login cmd
-- Initialise Firebase cmd
-- Deploy cmd
+- Email sign-up and sign-in
+- Browse rows: now playing, top rated, popular and upcoming movies
+- Movie page with cast, trailer and recommendations
+- AI search: describe a mood or plot and get five movie suggestions
 
+Planned work is in [ROADMAP.md](ROADMAP.md).
 
-# Features
+## Tech stack
 
-- Login/Sign Up
-    - Sign In /Sign up Form
-    - redirect to Browse Page
-- Browse (after authentication)
-    - Header
-    - Main Movie
-        - Tailer in Background
-        - Title & Description
-        - MovieSuggestions
-            - MovieLists * N
-- NetflixGPT
-    - Search Bar
-    - Movie Suggestions
+React 18, Redux Toolkit (with RTK Query), React Router 7, Tailwind CSS 3, Vite, Firebase 13 (Authentication and Hosting), TMDB API and Gemini API.
 
-# Tech Stack
+## Setup
 
-- React: Frontend framework for building user interfaces.
-- TMDB: Movie database for fetching movie details.
-- Firebase: Authentication and hosting platform.
-- OpenAI: Movie recommendation engine.
-- Specialized Movie Suggestions
-- To enable specialized movie suggestions, obtain your OpenAI key and enter it in the designated section of the application.
+You need Node.js 20 or newer, a [TMDB API read access token](https://developer.themoviedb.org/docs/getting-started) and a [Gemini API key](https://ai.google.dev/gemini-api/docs/api-key).
 
-# Contribute
+1. Install the packages: `npm install`
+2. Create a `.env` file in the project root:
 
-If you'd like to contribute to this project, have suggestions for improvement, or wish to add more features, please feel free to submit issues or pull requests on GitHub. Your contributions are valued! 🚀
+   ```text
+   VITE_TMDB_KEY=your_tmdb_read_access_token
+   VITE_GEMINI_KEY=your_gemini_api_key
+   ```
 
-Thank you for exploring Netflix GPT. We hope it enhances your movie-watching experience!
+3. Start the app: `npm run dev`, then open <http://localhost:3000>
+
+Both keys are included in the browser bundle, so anyone who uses the app can read them. Use keys with limited access.
+
+The Firebase settings are in `src/services/firebase.js`. Change them to use your own Firebase project.
+
+## Commands
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` (or `npm start`) | Development server on port 3000 |
+| `npm run build` | Production build to `build/` |
+| `npm run preview` | Serve the production build locally |
+| `firebase deploy` | Deploy to Firebase Hosting |
+
+## Troubleshooting
+
+If no movies load, check that your network can reach `api.themoviedb.org`. Some internet providers block it.
+
+## Attribution
+
+This product uses the TMDB API but is not endorsed or certified by [TMDB](https://www.themoviedb.org/).

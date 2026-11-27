@@ -4,14 +4,14 @@ Shared memory between sessions. Read it at the start of a session and update it 
 
 ## Current state
 
-- **Current phase:** Phase 0 (Foundation and cleanup). Task 1 is committed and merged into `main`
-- **Next step:** Start task 2 (remove unused packages) on a branch, not on `main`
+- **Current phase:** Phase 0 (Foundation and cleanup) is done and merged into `main`. Phase 1 has not started
+- **Next step:** Start Phase 1 (multi-media discovery) in a new session, on a branch such as `phase-1-discovery`
 
 ## Status
 
 | Phase | Name | Status |
 | --- | --- | --- |
-| 0 | Foundation and cleanup | In progress |
+| 0 | Foundation and cleanup | Done |
 | 1 | Multi-media discovery | Not started |
 | 2 | Search and filters | Not started |
 | 3 | Library and watchlist | Not started |
@@ -25,8 +25,16 @@ Status values: Not started, In progress, Done.
 
 ## Open issues
 
-- Task 1 (Vite): signed-in pages are not verified, so it is not ticked in `ROADMAP.md`.
+- The agent did not verify Phase 0 with real Firebase, TMDB or Gemini, and the user has not reported a test result. Check sign-in, browse, movie page and AI search at the start of Phase 1.
+- Phase 0 is not deployed. The new Hosting rewrite in `firebase.json` is not verified.
+- `api.themoviedb.org` timed out on the user's network on 2026-11-27 (`image.tmdb.org` worked). DNS came from the JioFiber router, so it looks like an ISP block. Users on such networks see error states.
 - There is no linter or test runner since Create React App was removed. Tests are planned for Phase 8.
+- `package.json` overrides `@grpc/grpc-js` to `^1.14.7` because Firestore 4.20.0 asks for an older version with security warnings. Remove the override once Firebase uses a fixed version. Not tested with Firestore calls; check it in Phase 3.
+- The TMDB token and Gemini key are in the browser bundle (Gemini moves in Phase 6).
+- The removed demo login (`demo@flixora.com`) is still in the git history. If that account exists in Firebase, delete it or change its password in the Firebase console.
+- While AI search is open, the header links "Top Rated" and "Upcoming" close it but do not scroll. This was already true before Phase 0.
+- The Firebase project ID `netflix-gpt-1ef51` and the repository name cannot be changed by code.
+- The TMDB attribution notice is in the README only; the in-app footer notice is a Phase 1 task.
 
 ## Decisions
 
@@ -39,11 +47,49 @@ Status values: Not started, In progress, Done.
 | 2026-11-27 | Stay on JavaScript |
 | 2026-11-27 | After each task: stop, user tests, agent commits once approved |
 | 2026-11-27 | Content categories and watch statuses in `ROADMAP.md` section 3 are accepted |
+| 2026-11-27 | Phase 0 tasks 3 to 7 were done without stopping after each one, then pushed (that session only) |
+| 2026-11-27 | The brand color is purple (`#7C3AED`), replacing red. Error and sign-out styles stay red |
+| 2026-11-27 | Remove the demo auto-fill from the login page |
+| 2026-11-27 | Fix security warnings. This upgraded Firebase 10 to 13 and React Router 6 to 7 |
 
 
 ## Session log
 
 Newest first.
+
+### 2026-11-27: Phase 0, merge into main
+
+- **Done:** merged `phase-0-cleanup` into `main` and pushed, at the user's request. Phase 0 set to Done.
+- **Not done:** no deploy.
+- **Code changes:** none besides the merge and this file.
+- **Verified:** `npm run build`. Not verified: real services and deploy.
+- **Next:** Phase 1 in a new session.
+
+### 2026-11-27: Phase 0, purple theme, security fixes, demo login removed
+
+- **Done:** removed "Testing? Auto-fill Demo Details"; changed the brand color, logo, icon and backdrop to purple; cleared all `npm audit` warnings (`npm audit fix`, Firebase 13.4.0, React Router 7.18.7, `@grpc/grpc-js` override).
+- **Not done:** no merge or deploy. Committed and pushed at the user's request.
+- **Code changes:** `package.json`, `package-lock.json`, `tailwind.config.js`, `src/index.css`, `src/components/Logo.jsx`, `src/components/Header.jsx`, `src/features/auth/LoginPage.jsx`, `src/features/ai/AISearchBar.jsx`, `public/`.
+- **Verified:** `npm audit` found 0 vulnerabilities; `npm run build` with no warnings; the same temporary 26-check Edge test passed on the preview and development servers, with faked services. Not verified: real Firebase 13 sign-in, TMDB, Gemini, deploy.
+- **Next:** user test, then merge.
+
+### 2026-11-27: Phase 0, tasks 3 to 7
+
+- **Done:** new folder structure; one router with a layout route and route guards; app-level auth provider; RTK Query TMDB service; shared Card, Row, Grid, Skeleton, Toast, error boundary and 404 page; rebrand (original backdrop, false labels removed, new row names, package renamed to `flixora`, new README). Fixed the hero text and button hidden behind the rows (an older bug). Removed unused styles.
+- **Not done:** optional TypeScript task (the project stays on JavaScript). Not merged, not deployed.
+- **Code changes:** `src/app/`, `src/config/`, `src/services/`, `src/features/`, `src/components/`, `firebase.json`.
+- **Behaviour changes:** the hero has one button, "More Info"; AI results are cleared on sign-out; each browse and AI row has its own loading and error state; a sign-out failure shows a toast; the `/error` page was removed.
+- **Verified:** `npm run build` with no warnings; a temporary headless Edge test with 26 checks passed on the preview and development servers. It faked Firebase Auth, Gemini, TMDB, images and YouTube, and the test script is not in the repository. Not verified: any real service, deploy, browsers other than Edge.
+- **Next:** user test, merge, Phase 1.
+
+### 2026-11-27: Phase 0, task 2 (unused packages and files)
+
+- **Done:** removed `openai`, `init` and `npx`; moved `react-router-dom` to `dependencies`; deleted `public/netflix.png`; stopped tracking `.firebase/` and added it to `.gitignore`; removed unused constants `APP_NAME`, `APP_TAGLINE`, `LOGO`.
+- **Not done:** tasks 3 to 7. No commit.
+- **Code changes:** `package.json`, `package-lock.json`, `.gitignore`, `src/utils/constants.js`.
+- **Verified:** `npm install`, `npm run build` (no warnings), unused-import check on `src/`, login page renders in preview (headless Edge). Not verified: sign-in, browse, detail, AI search, deploy.
+- **Issues and decisions:** the user asked for Phase 2, then Phase 1. The code showed Phase 0 was not finished, and the user chose to finish Phase 0 first.
+- **Next:** user test, commit, task 3.
 
 ### 2026-11-27: Phase 0, commit and merge task 1
 

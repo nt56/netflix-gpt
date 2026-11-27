@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import Logo from "./Logo";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../utils/firebase";
+import { useToast } from "./toast/toastContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../services/firebase";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, removeUser } from "../utils/userSlice";
-import { toggelGptSearchView } from "../utils/gptSlice";
+import { selectUser } from "../features/auth/authSlice";
+import { toggleAiSearch } from "../features/ai/aiSlice";
 import { HiSparkles } from "react-icons/hi2";
 import { FaHome, FaChevronDown } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
@@ -14,9 +15,10 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
+  const showToast = useToast();
 
-  const user = useSelector((store) => store.user);
-  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
+  const user = useSelector(selectUser);
+  const showAiSearch = useSelector((store) => store.ai.showAiSearch);
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -54,34 +56,12 @@ const Header = () => {
       })
       .catch((error) => {
         console.error(error);
-        navigate("/error");
+        showToast("Could not sign out. Please try again.", "error");
       });
   };
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const { uid, email, displayName, photoURL } = user;
-        dispatch(
-          addUser({
-            uid: uid,
-            email: email,
-            displayName: displayName,
-            photoURL: photoURL,
-          })
-        );
-        if (window.location.pathname === "/") navigate("/browse");
-      } else {
-        dispatch(removeUser());
-        navigate("/");
-      }
-    });
-
-    return () => unsubscribe();
-  }, [dispatch, navigate]);
-
-  const handleGPTSearchClick = () => {
-    dispatch(toggelGptSearchView());
+  const handleAiSearchClick = () => {
+    dispatch(toggleAiSearch());
     if (location.pathname !== "/browse") {
       navigate("/browse");
     }
@@ -89,7 +69,7 @@ const Header = () => {
 
   const handleLogoClick = () => {
     if (user) {
-      if (showGptSearch) dispatch(toggelGptSearchView());
+      if (showAiSearch) dispatch(toggleAiSearch());
       navigate("/browse");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
@@ -108,30 +88,32 @@ const Header = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
         {/* Brand Logo & Navigation */}
         <div className="flex items-center gap-4">
-          <div
+          <button
+            type="button"
             onClick={handleLogoClick}
+            aria-label="Flixora home"
             className="cursor-pointer group transition-transform duration-300 hover:scale-105"
           >
             <Logo size="md" />
-          </div>
+          </button>
 
           {/* Quick nav links for desktop when signed in and on browse */}
           {user && location.pathname === "/browse" && (
             <nav className="hidden lg:flex items-center gap-6 ml-6 text-sm font-medium text-gray-300">
               <button
                 onClick={() => {
-                  if (showGptSearch) dispatch(toggelGptSearchView());
+                  if (showAiSearch) dispatch(toggleAiSearch());
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 className={`transition-colors duration-200 hover:text-white ${
-                  !showGptSearch ? "text-white font-semibold" : "text-gray-400"
+                  !showAiSearch ? "text-white font-semibold" : "text-gray-400"
                 }`}
               >
                 Browse
               </button>
               <button
                 onClick={() => {
-                  if (showGptSearch) dispatch(toggelGptSearchView());
+                  if (showAiSearch) dispatch(toggleAiSearch());
                   const el = document.getElementById("movies-section");
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
@@ -141,7 +123,7 @@ const Header = () => {
               </button>
               <button
                 onClick={() => {
-                  if (showGptSearch) dispatch(toggelGptSearchView());
+                  if (showAiSearch) dispatch(toggleAiSearch());
                   const el = document.getElementById("upcoming-section");
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
@@ -158,14 +140,14 @@ const Header = () => {
           <div className="flex items-center gap-2.5 sm:gap-4">
             {/* AI Search Toggle Button */}
             <button
-              onClick={handleGPTSearchClick}
-              className={`group relative flex items-center gap-2 px-3.5 sm:px-5 py-2 rounded-full font-semibold text-xs sm:text-sm tracking-wide transition-all duration-300 shadow-lg ${
-                showGptSearch
+              onClick={handleAiSearchClick}
+              className={`group relative flex items-center gap-2 whitespace-nowrap px-3.5 sm:px-5 py-2 rounded-full font-semibold text-xs sm:text-sm tracking-wide transition-all duration-300 shadow-lg ${
+                showAiSearch
                   ? "bg-dark-800 text-white border border-white/20 hover:bg-dark-700"
-                  : "bg-gradient-to-r from-red-600 via-rose-600 to-purple-600 text-white hover:shadow-glow-purple hover:scale-105 active:scale-95"
+                  : "bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 text-white hover:shadow-glow-purple hover:scale-105 active:scale-95"
               }`}
             >
-              {showGptSearch ? (
+              {showAiSearch ? (
                 <>
                   <FaHome className="text-base text-brand transition-transform group-hover:scale-110" />
                   <span>Home</span>
@@ -218,11 +200,11 @@ const Header = () => {
 
                   <div className="py-1">
                     <button
-                      onClick={handleGPTSearchClick}
+                      onClick={handleAiSearchClick}
                       className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-gray-200 hover:text-white hover:bg-white/10 rounded-xl transition-colors"
                     >
                       <HiSparkles className="text-purple-400 text-sm" />
-                      <span>{showGptSearch ? "Back to Browse" : "AI Movie Recommender"}</span>
+                      <span>{showAiSearch ? "Back to Browse" : "AI Movie Recommender"}</span>
                     </button>
 
                     <button

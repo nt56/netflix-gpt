@@ -1,12 +1,8 @@
-import React from "react";
-
-const Logo = ({ size = "md", withTagline = false, className = "" }) => {
+const Logo = ({ size = "md", className = "" }) => {
   // Dimension presets
   const sizeMap = {
-    sm: { icon: "w-7 h-7", text: "text-lg", badge: "text-[9px] px-1.5 py-0.2" },
     md: { icon: "w-9 h-9", text: "text-2xl sm:text-3xl", badge: "text-[10px] px-2 py-0.5" },
     lg: { icon: "w-12 h-12", text: "text-3xl sm:text-4xl", badge: "text-xs px-2.5 py-0.5" },
-    xl: { icon: "w-16 h-16", text: "text-4xl sm:text-5xl", badge: "text-xs px-3 py-1" },
   };
 
   const currentSize = sizeMap[size] || sizeMap.md;
@@ -14,7 +10,7 @@ const Logo = ({ size = "md", withTagline = false, className = "" }) => {
   return (
     <div className={`flex items-center gap-2.5 sm:gap-3 select-none ${className}`}>
       {/* Flixora Glowing Vector Emblem */}
-      <div className={`relative ${currentSize.icon} shrink-0 drop-shadow-[0_0_16px_rgba(229,9,20,0.55)] transition-transform duration-300 group-hover:scale-105`}>
+      <div className={`relative ${currentSize.icon} shrink-0 drop-shadow-[0_0_16px_rgba(124,58,237,0.55)] transition-transform duration-300 group-hover:scale-105`}>
         <svg
           viewBox="0 0 48 48"
           fill="none"
@@ -23,13 +19,13 @@ const Logo = ({ size = "md", withTagline = false, className = "" }) => {
         >
           <defs>
             <linearGradient id="flixora-grad-comp" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#E50914" />
-              <stop offset="50%" stopColor="#FF2A6D" />
-              <stop offset="100%" stopColor="#8B5CF6" />
+              <stop offset="0%" stopColor="#7C3AED" />
+              <stop offset="50%" stopColor="#D946EF" />
+              <stop offset="100%" stopColor="#6366F1" />
             </linearGradient>
             <linearGradient id="flixora-accent-comp" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#FF5252" />
-              <stop offset="100%" stopColor="#FFB300" />
+              <stop offset="0%" stopColor="#C084FC" />
+              <stop offset="100%" stopColor="#F0ABFC" />
             </linearGradient>
           </defs>
 
@@ -62,7 +58,7 @@ const Logo = ({ size = "md", withTagline = false, className = "" }) => {
           />
 
           {/* Forward Cinema Spark / Chevron */}
-          <polygon points="31.5,24.5 36.5,21.5 36.5,27.5" fill="#FF2A6D" />
+          <polygon points="31.5,24.5 36.5,21.5 36.5,27.5" fill="#D946EF" />
         </svg>
       </div>
 
@@ -70,7 +66,7 @@ const Logo = ({ size = "md", withTagline = false, className = "" }) => {
       <div className="flex flex-col">
         <div className="flex items-center gap-1.5 sm:gap-2">
           <span className={`font-display font-black tracking-tighter text-white drop-shadow-md ${currentSize.text}`}>
-            FLIX<span className="bg-gradient-to-r from-brand via-rose-500 to-purple-500 bg-clip-text text-transparent">ORA</span>
+            FLIX<span className="bg-gradient-to-r from-violet-500 via-purple-400 to-fuchsia-400 bg-clip-text text-transparent">ORA</span>
           </span>
 
           <span className={`font-extrabold uppercase tracking-widest bg-purple-950/80 text-purple-300 border border-purple-500/40 rounded-md shadow-glow-purple ${currentSize.badge}`}>
@@ -78,11 +74,6 @@ const Logo = ({ size = "md", withTagline = false, className = "" }) => {
           </span>
         </div>
 
-        {withTagline && (
-          <span className="text-[10px] sm:text-xs text-gray-400 font-medium tracking-wide">
-            Cinema Reimagined with AI
-          </span>
-        )}
       </div>
     </div>
   );
